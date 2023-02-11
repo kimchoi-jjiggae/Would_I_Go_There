@@ -11,6 +11,6 @@
 
 
 //weather api 
-fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=40.74&lon=-73.99&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
+fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=40.74&lon=-73.99&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
     .then(response => response.json())
     .then(data => console.log(data))
