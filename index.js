@@ -1,21 +1,7 @@
-// let map;
-
-// function initMap( lat= -34.397, lng= 150.644) {
-//   map = new google.maps.Map(document.getElementById("map"), {
-//     center: { lat: -34.397, lng: 150.644 },
-//     zoom: 8,
-//   });
-// }
-
-// window.initMap = initMap;
-
-
-//weather api 
-
-//global variables
+//fetch weather data for other side of the world
 
 let timezone_offset;
-fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=0&lon=0&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
+fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=40.71&lon=-73.93&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
     .then(response => response.json())
     .then(data => {
 
@@ -61,6 +47,9 @@ function formatDT(dt, timezone_offset) {
     utcString = dateObj.toUTCString();
     return time = utcString.slice(-12, -7);
 }
+
+
+
 
 // google maps rendering code
 let inputAddress;

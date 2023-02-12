@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="blue">
+<body class="mainPage">
     <div id="landingPage">
         <h1>
             Would I Go There?
@@ -17,46 +17,89 @@
     </div>
 
 
-</body>
-
-
-<div class="addressInput">
-    <form>
-        <label>Address</label>
+    <form class="addressInput">
+        <label>Current Address</label>
         <input id="address" type="text" />
     </form>
-    <br>
-    <div>Submitted Address: </div>
-    <div id="showAddress">
-    </div>
-    <br>
-    <div>Converted Lat </div>
-    <div id="newLat">
-    </div>
-    <br>
-    <div>Converted Long </div>
-    <div id="newLong">
-    </div>
-</div>
 
 
-<body onload="initialize()" class="map">
-    <div id="map_canvas1" style="height:500px; width:100%"></div>
-    <input type="text" id="address" />
-    <button onclick="codeAddress()">Go!</button>
-    <script src="index.js"></script>
+    <div class="displayAddressInput">
+
+        <br>
+        <div>Submitted Address: </div>
+        <div id="showAddress">
+        </div>
+        <br>
+        <div>Converted Lat </div>
+        <div id="newLat">
+        </div>
+        <br>
+        <div>Converted Long </div>
+        <div id="newLong">
+        </div>
+    </div>
+
+    <div class="result">
+        <h1>Holding text: "Your home"</h1>
+
+        <body onload="initialize()" class="homeMap">
+            <div id="map_canvas1" style="height:500px; width:60%"></div>
+            <!-- <input type="text" id="address" /> -->
+            <!-- <button onclick="codeAddress()">Go!</button> -->
+            <script src="index.js"></script>
+        </body>
+    </div>
+
+    <!-- <div id="weatherBarHome">
+    </div> -->
+
+
+    <div class="result">
+        <h1>Holding text: "If you dug a hole and traveled through the Earth, you would arrive in ${}"</h1>
+        <h2>"Local Time: ${}"</h2>
+        <h2>Placeholder position:"Elevation/Depth"</h2>
+        <div class="resultContents">
+
+
+            <body onload="initialize()" class="otherSideOfTheWorld">
+                <div id="map_canvas2" style="height:500px; width: 60%"></div>
+                <!-- <input type="text" id="address" />
+                    <button onclick="codeAddress()">Go!</button> -->
+                <script src="index.js"></script>
+            </body>
+        
+
+
+
+            <div class="locationInformation">
+                <h3>Country Data or Fish Data</h3>
+                <p>Fish are friends, not food.</p>
+                <p>Fish are friends, not food.</p>
+                <p>Fish are friends, not food.</p>
+                <p>Fish are friends, not food.</p>
+                <p>Fish are friends, not food.</p>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+    <div id="weatherBar">
+    </div>
+
+
+
 </body>
-<br>
 
-<body onload="initialize()" class="map">
-    <div id="map_canvas2" style="height:500px; width:100%"></div>
-    <input type="text" id="address" />
-    <button onclick="codeAddress()">Go!</button>
-    <script src="index.js"></script>
-</body>
 
-<div id="weatherBar">
-</div>
+
+
+
+
+
+
+
+
 
 
 
