@@ -8,52 +8,56 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class = "blue">
+<body class="blue">
     <div id="landingPage">
         <h1>
             Would I Go There?
         </h1>
-        <img src="images/globe.svg"> </div>
-
-
-        <div class="addressInput">
-            <form>
-                <label>Address</label>
-                <input id = "address" type="text" />
-            </form>
-            <br>
-            <div>Submitted Address: </div>
-            <div id = "showAddress">
-            </div>
-            <br>
-            <div>Converted Lat </div>
-            <div id = "newLat">
-            </div>
-            <br>
-            <div>Converted Long </div>
-            <div id = "newLong">
-            </div>
-        </div>
-
-        <div id="weatherBar">
-        </div>
-
+        <img src="images/globe.svg">
     </div>
-    <body onload="initialize()" class ="map">
-        <div id="map_canvas1" style="height:500px; width:100%"></div>
-        <input type="text" id="address" />
-        <button onclick="codeAddress()">Go!</button>
-        <script src="index.js"></script>
-    </body>
+
+
+</body>
+
+
+<div class="addressInput">
+    <form>
+        <label>Address</label>
+        <input id="address" type="text" />
+    </form>
     <br>
-    <body onload="initialize()" class="map">
+    <div>Submitted Address: </div>
+    <div id="showAddress">
+    </div>
+    <br>
+    <div>Converted Lat </div>
+    <div id="newLat">
+    </div>
+    <br>
+    <div>Converted Long </div>
+    <div id="newLong">
+    </div>
+</div>
+
+
+<body onload="initialize()" class="map">
+    <div id="map_canvas1" style="height:500px; width:100%"></div>
+    <input type="text" id="address" />
+    <button onclick="codeAddress()">Go!</button>
+    <script src="index.js"></script>
+</body>
+<br>
+
+<body onload="initialize()" class="map">
     <div id="map_canvas2" style="height:500px; width:100%"></div>
     <input type="text" id="address" />
     <button onclick="codeAddress()">Go!</button>
     <script src="index.js"></script>
-    </body>
-        
 </body>
+
+<div id="weatherBar">
+</div>
+
 
 
 </html>

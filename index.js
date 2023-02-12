@@ -68,19 +68,18 @@ let lat;
 let long;
 
 
-    document.getElementsByTagName("form")[0].addEventListener("submit", e =>
-    {
+document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
-        e.preventDefault()
-        inputAddress = document.getElementById("address").value
+    e.preventDefault()
+    inputAddress = document.getElementById("address").value
 
-        document.getElementById("showAddress").append(inputAddress)
+    document.getElementById("showAddress").append(inputAddress)
 
-        let formattedAddress = inputAddress.replaceAll(" ", "%")
+    let formattedAddress = inputAddress.replaceAll(" ", "%")
 
-        let query = `https://api.geoapify.com/v1/geocode/search?text=${formattedAddress}&apiKey=ef5a7756a5d946bdae460c509c190f54`
-        console.log(query)
-        fetch(query)
+    let query = `https://api.geoapify.com/v1/geocode/search?text=${formattedAddress}&apiKey=ef5a7756a5d946bdae460c509c190f54`
+    console.log(query)
+    fetch(query)
         .then(res => res.json())
         .then(data => {
             console.log(data)
@@ -94,27 +93,27 @@ let long;
 
         })
 
-    })
+})
 
 let geocoder;
 let map;
 let marker;
 
 function initialize() {
-  geocoder = new google.maps.Geocoder();
-  let latlng = new google.maps.LatLng(-34.397, 150.644);
-  let mapOptions = {
-    zoom: 8,
-    center: latlng
-  }
-  map = new google.maps.Map(document.getElementById("map_canvas1"), mapOptions);
-  map2 = new google.maps.Map(document.getElementById("map_canvas2"), mapOptions);
+    geocoder = new google.maps.Geocoder();
+    let latlng = new google.maps.LatLng(-34.397, 150.644);
+    let mapOptions = {
+        zoom: 8,
+        center: latlng
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas1"), mapOptions);
+    map2 = new google.maps.Map(document.getElementById("map_canvas2"), mapOptions);
 
 }
 
 function codeLatLng(latitude, longitude) {
 
-    let latlng = new google.maps.LatLng(-latitude, longitude-180);
+    let latlng = new google.maps.LatLng(-latitude, longitude - 180);
     map2.setCenter(latlng);
     // map.setCenter(results[0].geometry.location);
     // if (marker2) {
@@ -128,19 +127,19 @@ function codeLatLng(latitude, longitude) {
 
 
 function codeAddress() {
-  let address = inputAddress;
-  geocoder.geocode( { 'address': address}, function(results, status) {
-    if (status == 'OK') {
-      map.setCenter(results[0].geometry.location);
-      if (marker) {
-        marker.setMap(null);
-      }
-      marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-      });
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
-    }
-  });
+    let address = inputAddress;
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == 'OK') {
+            map.setCenter(results[0].geometry.location);
+            if (marker) {
+                marker.setMap(null);
+            }
+            marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
 }
