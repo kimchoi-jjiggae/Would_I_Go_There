@@ -7,25 +7,32 @@
  * Always set the map height explicitly to define the size of the div element
  * that contains the map. 
  */
-.blue {
+ 
+ *{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+ }
+.mainPage {
   background-color: #004080;
   color: white;
 }
 
-/* .map {
-  background-color:none;
-} */
-
 #landingPage{
   text-align: center;
-  font-size: 60px;
+  font-size: 50px;
 }
 
 .addressInput{
-  text-align: center;
+  margin-top: 10vh;
 }
 
-body {
+.displayAddressInput{
+  text-align: center;
+  margin-top: 10vh;
+  display: none;
+  
+}
+
+body.mainPage {
   height: 100%;
   margin: auto;
   padding: 0;
@@ -43,8 +50,67 @@ body {
 
 }
 
+#weatherBarHome {
+  margin: auto;
+  margin-top: 20px;
+  display: flex;
+  overflow: auto;
+  max-width: 1000px;
+  border-style: solid;
+  border-radius: 4px;
+
+}
+
+.resultContents{
+  display: flex;
+}
 .weatherCard {
   text-align: center;
   color: white;
   padding: 8px;
+}
+
+.homeMap{
+  height: 500px;
+}
+
+.otherSideOfTheWorld{
+  height: 500px;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  
+}
+
+#map_canvas2{
+  border-radius: 8px;
+}
+
+.resultContents{
+  display: flex;
+}
+
+ul{
+  text-decoration: none;
+  list-style: none;
+  margin: auto;
+}
+
+.locationInformation{
+  width: 40%;
+  justify-content: center;
+  background-color: white;
+  color: #004080;
+  border-radius: 8px;
+  /* padding: 20px; */
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.result{
+  margin-top: 10vh;
+}
+
+#map_canvas1{
+  text-align: center;
 }
