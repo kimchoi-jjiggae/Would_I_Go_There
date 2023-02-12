@@ -2,11 +2,13 @@
 <html>
 
 <head>
-    <script src="index.js"></script>
+    <script defer src="index.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3m8GB4KsIQYIJzqB7PXdTCzrBHPWZlR0"></script>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class = "blue">
     <div id="landingPage">
         <h1>
             Would I Go There?
@@ -17,12 +19,41 @@
         <div class="addressInput">
             <form>
                 <label>Address</label>
-                <input type="text" />
+                <input id = "address" type="text" />
             </form>
+            <br>
+            <div>Submitted Address: </div>
+            <div id = "showAddress">
+            </div>
+            <br>
+            <div>Converted Lat </div>
+            <div id = "newLat">
+            </div>
+            <br>
+            <div>Converted Long </div>
+            <div id = "newLong">
+            </div>
         </div>
 
         <div id="weatherBar">
         </div>
+
+    </div>
+    <body onload="initialize()" class ="map">
+        <div id="map_canvas1" style="height:500px; width:100%"></div>
+        <input type="text" id="address" />
+        <button onclick="codeAddress()">Go!</button>
+        <script src="index.js"></script>
+    </body>
+    <br>
+    <body onload="initialize()" class="map">
+    <div id="map_canvas2" style="height:500px; width:100%"></div>
+    <input type="text" id="address" />
+    <button onclick="codeAddress()">Go!</button>
+    <script src="index.js"></script>
+    </body>
+        
 </body>
+
 
 </html>

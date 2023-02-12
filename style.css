@@ -7,14 +7,14 @@
  * Always set the map height explicitly to define the size of the div element
  * that contains the map. 
  */
-* {
+.blue {
   background-color: #004080;
   color: white;
 }
 
-#map {
-  height: 100%;
-}
+/* .map {
+  background-color:none;
+} */
 
 #landingPage{
   text-align: center;
