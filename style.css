@@ -70,6 +70,12 @@ body.mainPage {
   padding: 8px;
 }
 
+.homeInfo{
+  justify-content: center;
+  display: inline-block;
+}
+
+
 .homeMap{
   height: 500px;
 }
@@ -82,6 +88,10 @@ body.mainPage {
   
 }
 
+#map_canvas1{
+  border-radius: 8px;
+
+}
 #map_canvas2{
   border-radius: 8px;
 }
@@ -106,6 +116,7 @@ ul{
   margin-left: 10px;
   margin-right: 10px;
 }
+
 
 .result{
   margin-top: 10vh;
