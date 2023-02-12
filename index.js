@@ -15,7 +15,7 @@
 //global variables
 
 let timezone_offset;
-fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=40.77&lon=-73.97&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
+fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=0&lon=0&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
     .then(response => response.json())
     .then(data => {
 
