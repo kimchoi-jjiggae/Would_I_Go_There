@@ -36,7 +36,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
             // Creates map of home address
             codeAddress()
-
+            scrollDown()
             // Creates antipodal location ased on lat and long
             antiCoordinates = antipodal(lat,long)
             otherCountry = getOtherCountry(antiCoordinates)
@@ -44,7 +44,8 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
             codeLatLng(antiCoordinates[0], antiCoordinates[1])
 
             // Relaces placeholder elevation with antipodal location
-            renderOtherSideElevation(lat,long)
+            // renderOtherSideElevation(lat,long)
+            getLocalTime(lat, long)
 
             // Gets weather of antipodal location and renders it (rendering function is nested within the fetch function)
             getWeatherData(antiCoordinates[0], antiCoordinates[1])
@@ -52,6 +53,22 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
 })
 
+function scrollDown(){
+    let target = document.querySelector(".result");
+  
+    // Calculate the target position
+    let targetPosition = target.offsetTop;
+  
+    // Scroll to the target position over a duration of 1000ms (1s)
+    window.scroll({
+      top: targetPosition,
+      behavior: "smooth"
+    });
+
+    // scrolldelay = setTimeout(scrollDown,10)
+
+      
+}
 // gets antipodal country and render it in placeholder div
 function getOtherCountry(antiCoordinates){
     fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${antiCoordinates[0]}&lon=${antiCoordinates[1]}&format=json&apiKey=ef5a7756a5d946bdae460c509c190f54`)
@@ -183,12 +200,12 @@ function renderOtherSideElevation(lat,long){
 }
 
 // render time at home location
-function renderHomeTime(dateObj){
-    document.getElementById("homeTime").innerText = `Time is: ${dateObj}`
-}
+// function renderHomeTime(dateObj){
+//     document.getElementById("homeTime").innerText = ` ${dateObj}`
+// }
 
 function renderOtherTime(dateObj){
-    document.getElementById("otherSideTime").innerText = `Local Time: ${dateObj}`
+    document.getElementById("otherSideTime").innerText = `Time at your current location: ${dateObj}`
 
 }
 
@@ -215,6 +232,19 @@ function getWeatherData(lat, long){
 
         })
     }
+
+    function getLocalTime(lat, long){
+        fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
+            .then(response => response.json())
+            .then(data => {
+    
+                let dt;
+                dt = data.current.dt
+                timezone_offset = data.timezone_offset
+                dateObj = formatDT(dt, timezone_offset)
+                document.getElementById("homeTime").innerText = `Time at your current location:: ${dateObj}`            
+            })
+        }
 
 // takes data of hourly weather and places it into the Weather Card in the OtherSide Display
 function renderHourlyWeather(weatherDetails) {
