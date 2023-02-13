@@ -85,7 +85,7 @@ body.mainPage {
   height: 500px;
   width: 100%;
   margin-left: 10px;
-  margin-right: 10px;
+  /* margin-right: 10px; */
   
 }
 
@@ -115,7 +115,7 @@ ul{
   border-radius: 8px;
   /* padding: 20px; */
   margin-left: 10px;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 
 

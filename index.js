@@ -11,32 +11,45 @@ let marker;
 document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
     e.preventDefault()
-    inputAddress = document.getElementById("address").value
 
+    // Gets address inputed by user
+    inputAddress = document.getElementById("address").value
     document.getElementById("showAddress").append(inputAddress)
 
+    // formats address so that it can be put into the API to receive Lat/long
     let formattedAddress = inputAddress.replaceAll(" ", "%")
-
     let query = `https://api.geoapify.com/v1/geocode/search?text=${formattedAddress}&apiKey=ef5a7756a5d946bdae460c509c190f54`
-    console.log(query)
+
+    // fetches Lat/Long of input address
     fetch(query)
         .then(res => res.json())
         .then(data => {
-            // console.log(data)
+            // gets Lat/Long from API
             lat = data.features[0].properties.lat
             long = data.features[0].properties.lon
+    
+            // document.getElementById("newLat").innerHTML = lat
+            // document.getElementById("newLong").innerHTML=long
 
-            document.getElementById("newLat").innerHTML = lat
-            document.getElementById("newLong").innerHTML=long
+            // Creates map of home address
             codeAddress()
+
+            // Creates antipodal location ased on lat and long
             antiCoordinates = antipodal(lat,long)
+
+            // Creates map of antipodal location
             codeLatLng(antiCoordinates[0], antiCoordinates[1])
+
+            // Relaces placeholder elevation with antipodal location
             renderOtherSideElevation(lat,long)
+
+            // Gets weather of antipodal location and renders it (rendering function is nested within the fetch function)
             getWeatherData(antiCoordinates[0], antiCoordinates[1])
         })
 
 })
 
+// Gets antipodal lat/long from any input lat/long
 function antipodal(lat, long){
     antiLat = -lat;
     antiLong;
@@ -46,7 +59,7 @@ function antipodal(lat, long){
     return [antiLat, antiLong];
 }
 
-// google maps rendering code
+// Does the INITIAL render of both the home map and the otherSide map based on a placeholder Lat/Long- needs to be put as a script into a div/body tag
 function initialize() {
     geocoder = new google.maps.Geocoder();
     let latlng = new google.maps.LatLng(-34.397, 150.644);
@@ -59,8 +72,8 @@ function initialize() {
 
 }
 
+// Renders map based on lat/long (used to render other side of the world map)
 function codeLatLng(latitude, longitude) {
-
     let latlng = new google.maps.LatLng(latitude, longitude);
     map2.setCenter(latlng);
     // map.setCenter(results[0].geometry.location);
@@ -73,7 +86,7 @@ function codeLatLng(latitude, longitude) {
     });
 };
 
-
+// Renders map based on address (used to render home location)
 function codeAddress() {
     let address = inputAddress;
     geocoder.geocode({ 'address': address }, function (results, status) {
@@ -99,6 +112,8 @@ function codeAddress() {
 //         .then(data=> document.getElementById("homeElevation").innerText = `Elevation is: ~${data.result.elevation}m`)
 
 // }
+
+// Renders 
 function renderOtherSideElevation(lat,long){
     antiCoordinates = antipodal(lat,long)
     fetch(`https://api.gpxz.io/v1/elevation/point?lat=${antiCoordinates[0]}&lon=${antiCoordinates[1]}&api-key=ak_4rLt9ykj_GbgzR3XS651qJnwc`)
@@ -132,6 +147,12 @@ function getWeatherData(lat, long){
             dt = data.current.dt
             timezone_offset = data.timezone_offset
             dateObj = formatDT(dt, timezone_offset)
+            // If any weather is already displayed, delete all of those elements and replace with weather of new location
+            if (document.getElementsByClassName("weatherCard").length > 0){
+                Array.from(document.getElementsByClassName("weatherCard")).forEach(e => e.remove())
+                weatherBar = document.createElement("div")
+                weatherBar.className = "weatherBar"
+            }
             data.hourly.forEach(hour => renderHourlyWeather(hour))
             renderOtherTime(dateObj)
             // renderHomeTime(homeDateObj)
@@ -139,8 +160,10 @@ function getWeatherData(lat, long){
         })
     }
 
+// takes data of hourly weather and places it into the Weather Card in the OtherSide Display
 function renderHourlyWeather(weatherDetails) {
     let weatherBar = document.getElementById("weatherBar")
+
     let weatherCard = document.createElement("div")
     weatherCard.className = "weatherCard"
     let time = document.createElement("p")
@@ -163,10 +186,12 @@ function renderHourlyWeather(weatherDetails) {
     // console.log(data)
 }
 
+// Gets icon for a given weather pattern
 function determineIcon(icon) {
     return `https://openweathermap.org/img/wn/${icon}.png`
 }
 
+// Formats date/time based on input from weather API
 function formatDT(dt, timezone_offset) {
     let dateObj = new Date(((dt + timezone_offset) * 1000));
     utcString = dateObj.toUTCString();
