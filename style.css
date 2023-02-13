@@ -72,12 +72,13 @@ body.mainPage {
 
 .homeInfo{
   justify-content: center;
-  display: inline-block;
+  display:flex;
 }
 
 
 .homeMap{
   height: 500px;
+  width:100%
 }
 
 .otherSideOfTheWorld{

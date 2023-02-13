@@ -1,60 +1,9 @@
-//fetch weather data for other side of the world
-
-let timezone_offset;
-fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=40.71&lon=-73.93&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
-    .then(response => response.json())
-    .then(data => {
-
-        let dt;
-        dt = data.current.dt
-        timezone_offset = data.timezone_offset
-        dateObj = formatDT(dt, timezone_offset)
-
-
-        data.hourly.forEach(hour => renderHourlyWeather(hour))
-
-    })
-
-function renderHourlyWeather(weatherDetails) {
-    let weatherBar = document.getElementById("weatherBar")
-    let weatherCard = document.createElement("div")
-    weatherCard.className = "weatherCard"
-    let time = document.createElement("p")
-    let icon = document.createElement("img")
-    let temp = document.createElement("p")
-    let imageIconURL = determineIcon(weatherDetails.weather[0].icon)
-
-    let hourlyTimeDT = weatherDetails.dt
-    let hourlyTime = formatDT(hourlyTimeDT, timezone_offset)
-
-    time.textContent = hourlyTime
-
-    icon.src = imageIconURL
-
-    temp.textContent = weatherDetails.temp
-    weatherCard.appendChild(time)
-    weatherCard.appendChild(icon)
-    weatherCard.appendChild(temp)
-    weatherBar.appendChild(weatherCard)
-}
-
-function determineIcon(icon) {
-    return `https://openweathermap.org/img/wn/${icon}.png`
-}
-
-function formatDT(dt, timezone_offset) {
-    let dateObj = new Date(((dt + timezone_offset) * 1000));
-    utcString = dateObj.toUTCString();
-    return time = utcString.slice(-12, -7);
-}
-
-
-
-
-// google maps rendering code
 let inputAddress;
 let lat;
 let long;
+let geocoder;
+let map;
+let marker;
 
 
 document.getElementsByTagName("form")[0].addEventListener("submit", e => {
@@ -79,15 +28,15 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
             document.getElementById("newLong").append(long)
             codeAddress()
             codeLatLng(lat, long)
-
+            renderHomeElevation(lat,long)
+            getWeatherData(lat,long)
         })
 
 })
 
-let geocoder;
-let map;
-let marker;
 
+
+// google maps rendering code
 function initialize() {
     geocoder = new google.maps.Geocoder();
     let latlng = new google.maps.LatLng(-34.397, 150.644);
@@ -131,4 +80,74 @@ function codeAddress() {
             alert('Geocode was not successful for the following reason: ' + status);
         }
     });
+}
+
+
+function renderHomeElevation(lat,long){
+    fetch(`https://api.gpxz.io/v1/elevation/point?lat=${lat}&lon=${long}&api-key=ak_4rLt9ykj_GbgzR3XS651qJnwc`)
+        .then(res=>res.json())
+        .then(data=> document.getElementById("homeElevation").innerText = `Elevation is: ~${data.result.elevation}m`)
+
+}
+// function renderOtherSideElevation(lat,long){
+//     otherElevation = getElevation(-lat, 180-long, "ak_4rLt9ykj_XenmA90l0QP8tXdM")
+//     document.getElementById("otherSideElevation").innerText = `Elevation is: ${otherElevation}m`
+
+// }
+
+// render time at home location
+function renderHomeTime(dateObj){
+    document.getElementById("homeTime").innerText = `Time is: ${dateObj}`
+}
+
+//fetch weather data for other side of the world
+let timezone_offset;
+function getWeatherData(lat, long){
+    fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
+        .then(response => response.json())
+        .then(data => {
+
+            let dt;
+            dt = data.current.dt
+            timezone_offset = data.timezone_offset
+            dateObj = formatDT(dt, timezone_offset)
+
+            data.hourly.forEach(hour => renderHourlyWeather(hour))
+            renderHomeTime(dateObj)
+
+        })
+    }
+
+function renderHourlyWeather(weatherDetails) {
+    let weatherBar = document.getElementById("weatherBar")
+    let weatherCard = document.createElement("div")
+    weatherCard.className = "weatherCard"
+    let time = document.createElement("p")
+    let icon = document.createElement("img")
+    let temp = document.createElement("p")
+    let imageIconURL = determineIcon(weatherDetails.weather[0].icon)
+
+    let hourlyTimeDT = weatherDetails.dt
+    let hourlyTime = formatDT(hourlyTimeDT, timezone_offset)
+
+    time.textContent = hourlyTime
+
+    icon.src = imageIconURL
+
+    temp.textContent = weatherDetails.temp
+    weatherCard.appendChild(time)
+    weatherCard.appendChild(icon)
+    weatherCard.appendChild(temp)
+    weatherBar.appendChild(weatherCard)
+    // console.log(data)
+}
+
+function determineIcon(icon) {
+    return `https://openweathermap.org/img/wn/${icon}.png`
+}
+
+function formatDT(dt, timezone_offset) {
+    let dateObj = new Date(((dt + timezone_offset) * 1000));
+    utcString = dateObj.toUTCString();
+    return time = utcString.slice(-12, -7);
 }
