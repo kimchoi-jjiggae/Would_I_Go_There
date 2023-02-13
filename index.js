@@ -36,7 +36,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
             // Creates map of home address
             codeAddress()
-
+            scrollDown()
             // Creates antipodal location ased on lat and long
             antiCoordinates = antipodal(lat,long)
             otherCountry = getOtherCountry(antiCoordinates)
@@ -52,6 +52,22 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
 })
 
+function scrollDown(){
+    let target = document.querySelector(".result");
+  
+    // Calculate the target position
+    let targetPosition = target.offsetTop;
+  
+    // Scroll to the target position over a duration of 1000ms (1s)
+    window.scroll({
+      top: targetPosition,
+      behavior: "smooth"
+    });
+
+    // scrolldelay = setTimeout(scrollDown,10)
+
+      
+}
 // gets antipodal country and render it in placeholder div
 function getOtherCountry(antiCoordinates){
     fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${antiCoordinates[0]}&lon=${antiCoordinates[1]}&format=json&apiKey=ef5a7756a5d946bdae460c509c190f54`)
