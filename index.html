@@ -4,6 +4,7 @@
 <head>
     <script defer src="index.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3m8GB4KsIQYIJzqB7PXdTCzrBHPWZlR0"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -62,7 +63,7 @@
 
 
     <div class="result">
-        <h1>Holding text: "If you dug a hole and traveled through the Earth, you would arrive in ${}"</h1>
+        <h1 id = "otherCountry">"If you dug a hole and traveled through the Earth, you would arrive in ${}"</h1>
         <h2 id = "otherSideTime">"Local Time: ${}"</h2>
         <h2 id = "otherSideElevation">Placeholder position:"Elevation/Depth"</h2>
         <div class="resultContents">
@@ -78,14 +79,8 @@
 
 
 
-            <div class="locationInformation">
-                <h3>Country Data or Fish Data</h3>
-                <p>Fish are friends, not food.</p>
-                <p>Fish are friends, not food.</p>
-                <p>Fish are friends, not food.</p>
-                <p>Fish are friends, not food.</p>
-                <p>Fish are friends, not food.</p>
-                <p>Fish are friends, not food.</p>
+            <div id = "locationInformation" class = "locationInformation">
+                <h3 class = "otherData">Country Data or Fish Data</h3>
             </div>
         </div>
     </div>
