@@ -7,36 +7,59 @@
  * Always set the map height explicitly to define the size of the div element
  * that contains the map. 
  */
- 
- *{
-  font-family: Georgia, 'Times New Roman', Times, serif;
- }
+
+* {
+  font-family: system-ui;
+}
+
 .mainPage {
   background-color: #004080;
   color: white;
-}
-
-#landingPage{
   text-align: center;
-  font-size: 50px;
+  margin-left: 1vw;
+  margin-right: 1vw;
 }
 
-.addressInput{
-  margin-top: 10vh;
+#landingPage {
+  text-align: center;
+  font-size: 45px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.displayAddressInput{
+#webpageImage img{
+  width: 800px;
+}
+
+
+.addressInput {
+  margin-top: 5vh;
+  color: #183F7C;
+}
+
+#address{
+  text-align: center;
+  border-radius: 100px;
+  height: 30px;
+  width: 400px;
+  font-size: medium;
+  font-weight: bold;
+  /* background-image: url(images/Vector.svg);
+  background-position: 2px 3px;
+  background-repeat: no-repeat;
+  background-size: 22px;
+  align-items: first baseline; */
+}
+
+::placeholder{
+  color: #183F7C;
+}
+
+.displayAddressInput {
   text-align: center;
   margin-top: 10vh;
   display: none;
-  
-}
 
-body.mainPage {
-  height: 100%;
-  margin: auto;
-  padding: 0;
-  text-align: center;
 }
 
 #weatherBar {
@@ -61,53 +84,55 @@ body.mainPage {
 
 }
 
-.resultContents{
+.resultContents {
   display: flex;
 }
+
 .weatherCard {
   text-align: center;
   color: white;
   padding: 8px;
 }
 
-.homeInfo{
+.homeInfo {
   justify-content: center;
-  display:flex;
+  display: flex;
 }
 
 
-.homeMap{
+.homeMap {
   height: 500px;
-  width:100%
+  width: 100%
 }
 
-.otherSideOfTheWorld{
+.otherSideOfTheWorld {
   height: 500px;
   width: 100%;
   margin-left: 10px;
   /* margin-right: 10px; */
-  
+
 }
 
-#map_canvas1{
+#map_canvas1 {
   border-radius: 8px;
 
 }
-#map_canvas2{
+
+#map_canvas2 {
   border-radius: 8px;
 }
 
-.resultContents{
+.resultContents {
   display: flex;
 }
 
-ul{
+ul {
   text-decoration: none;
   list-style: none;
   margin: auto;
 }
 
-.locationInformation{
+.locationInformation {
   width: 40%;
   justify-content: center;
   background-color: white;
@@ -119,10 +144,10 @@ ul{
 }
 
 
-.result{
+.result {
   margin-top: 10vh;
 }
 
-#map_canvas1{
+#map_canvas1 {
   text-align: center;
 }
