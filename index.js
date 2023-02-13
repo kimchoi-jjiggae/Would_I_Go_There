@@ -31,7 +31,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
             codeAddress()
             antiCoordinates = antipodal(lat,long)
             codeLatLng(antiCoordinates[0], antiCoordinates[1])
-            renderHomeElevation(lat,long)
+            renderOtherSideElevation(lat,long)
             getWeatherData(antiCoordinates[0], antiCoordinates[1])
         })
 
@@ -93,21 +93,31 @@ function codeAddress() {
 }
 
 
-function renderHomeElevation(lat,long){
-    fetch(`https://api.gpxz.io/v1/elevation/point?lat=${lat}&lon=${long}&api-key=ak_4rLt9ykj_GbgzR3XS651qJnwc`)
-        .then(res=>res.json())
-        .then(data=> document.getElementById("homeElevation").innerText = `Elevation is: ~${data.result.elevation}m`)
-
-}
-// function renderOtherSideElevation(lat,long){
-//     otherElevation = getElevation(-lat, 180-long, "ak_4rLt9ykj_XenmA90l0QP8tXdM")
-//     document.getElementById("otherSideElevation").innerText = `Elevation is: ${otherElevation}m`
+// function renderHomeElevation(lat,long){
+//     fetch(`https://api.gpxz.io/v1/elevation/point?lat=${lat}&lon=${long}&api-key=ak_4rLt9ykj_GbgzR3XS651qJnwc`)
+//         .then(res=>res.json())
+//         .then(data=> document.getElementById("homeElevation").innerText = `Elevation is: ~${data.result.elevation}m`)
 
 // }
+function renderOtherSideElevation(lat,long){
+    antiCoordinates = antipodal(lat,long)
+    fetch(`https://api.gpxz.io/v1/elevation/point?lat=${antiCoordinates[0]}&lon=${antiCoordinates[1]}&api-key=ak_4rLt9ykj_GbgzR3XS651qJnwc`)
+        .then(res=>res.json())
+        .then(data=> {
+            document.getElementById("otherSideElevation").innerText = `Elevation is: ${data.result.elevation}m`
+        })
+
+
+}
 
 // render time at home location
 function renderHomeTime(dateObj){
     document.getElementById("homeTime").innerText = `Time is: ${dateObj}`
+}
+
+function renderOtherTime(dateObj){
+    document.getElementById("otherSideTime").innerText = `Local Time: ${dateObj}`
+
 }
 
 //fetch weather data for other side of the world
@@ -118,12 +128,13 @@ function getWeatherData(lat, long){
         .then(data => {
 
             let dt;
+            console.log(data)
             dt = data.current.dt
             timezone_offset = data.timezone_offset
             dateObj = formatDT(dt, timezone_offset)
-
             data.hourly.forEach(hour => renderHourlyWeather(hour))
-            renderHomeTime(dateObj)
+            renderOtherTime(dateObj)
+            // renderHomeTime(homeDateObj)
 
         })
     }
