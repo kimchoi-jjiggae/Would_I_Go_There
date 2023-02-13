@@ -6,6 +6,9 @@ let antiLong;
 let geocoder;
 let map;
 let marker;
+let otherCountry;
+let otherCity;
+
 
 
 document.getElementsByTagName("form")[0].addEventListener("submit", e => {
@@ -36,7 +39,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
             // Creates antipodal location ased on lat and long
             antiCoordinates = antipodal(lat,long)
-
+            otherCountry = getOtherCountry(antiCoordinates)
             // Creates map of antipodal location
             codeLatLng(antiCoordinates[0], antiCoordinates[1])
 
@@ -48,6 +51,28 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
         })
 
 })
+
+// gets antipodal country and render it in placeholder div
+function getOtherCountry(antiCoordinates){
+    fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${antiCoordinates[0]}&lon=${antiCoordinates[1]}&format=json&apiKey=ef5a7756a5d946bdae460c509c190f54`)
+        .then(res=> res.json())
+        .then(data => {
+
+            if (data.results[0].ocean){
+                otherOcean = data.results[0].ocean
+                document.getElementById("otherCountry").innerText = `If you dug a hole and traveled through the Earth, you would arrive in the ${otherOcean}`
+
+            } else {
+                otherCountry = data.results[0].country
+                otherCity = data.results[0].city
+                document.getElementById("otherCountry").innerText = `If you dug a hole and traveled through the Earth, you would arrive in ${otherCity}, ${otherCountry}`
+            }
+           
+
+        })
+    return otherCountry;
+}
+
 
 // Gets antipodal lat/long from any input lat/long
 function antipodal(lat, long){
@@ -143,7 +168,6 @@ function getWeatherData(lat, long){
         .then(data => {
 
             let dt;
-            console.log(data)
             dt = data.current.dt
             timezone_offset = data.timezone_offset
             dateObj = formatDT(dt, timezone_offset)
