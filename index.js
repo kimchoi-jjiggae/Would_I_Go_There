@@ -1,22 +1,169 @@
+let inputAddress;
+let lat;
+let long;
+let antiLat;
+let antiLong;
+let geocoder;
+let map;
+let marker;
+
+
+document.getElementsByTagName("form")[0].addEventListener("submit", e => {
+
+    e.preventDefault()
+
+    // Gets address inputed by user
+    inputAddress = document.getElementById("address").value
+    document.getElementById("showAddress").append(inputAddress)
+
+    // formats address so that it can be put into the API to receive Lat/long
+    let formattedAddress = inputAddress.replaceAll(" ", "%")
+    let query = `https://api.geoapify.com/v1/geocode/search?text=${formattedAddress}&apiKey=ef5a7756a5d946bdae460c509c190f54`
+
+    // fetches Lat/Long of input address
+    fetch(query)
+        .then(res => res.json())
+        .then(data => {
+            // gets Lat/Long from API
+            lat = data.features[0].properties.lat
+            long = data.features[0].properties.lon
+    
+            // document.getElementById("newLat").innerHTML = lat
+            // document.getElementById("newLong").innerHTML=long
+
+            // Creates map of home address
+            codeAddress()
+
+            // Creates antipodal location ased on lat and long
+            antiCoordinates = antipodal(lat,long)
+
+            // Creates map of antipodal location
+            codeLatLng(antiCoordinates[0], antiCoordinates[1])
+
+            // Relaces placeholder elevation with antipodal location
+            renderOtherSideElevation(lat,long)
+
+            // Gets weather of antipodal location and renders it (rendering function is nested within the fetch function)
+            getWeatherData(antiCoordinates[0], antiCoordinates[1])
+        })
+
+})
+
+// Gets antipodal lat/long from any input lat/long
+function antipodal(lat, long){
+    antiLat = -lat;
+    antiLong;
+    if (long>0){
+        antiLong = long-180;
+    } else antiLong = long+180
+    return [antiLat, antiLong];
+}
+
+// Does the INITIAL render of both the home map and the otherSide map based on a placeholder Lat/Long- needs to be put as a script into a div/body tag
+function initialize() {
+    geocoder = new google.maps.Geocoder();
+    let latlng = new google.maps.LatLng(-34.397, 150.644);
+    let mapOptions = {
+        zoom: 8,
+        center: latlng
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas1"), mapOptions);
+    map2 = new google.maps.Map(document.getElementById("map_canvas2"), mapOptions);
+
+}
+
+// Renders map based on lat/long (used to render other side of the world map)
+function codeLatLng(latitude, longitude) {
+    let latlng = new google.maps.LatLng(latitude, longitude);
+    map2.setCenter(latlng);
+    // map.setCenter(results[0].geometry.location);
+    // if (marker2) {
+    //   marker.setMap(null);
+    // }
+    marker2 = new google.maps.Marker({
+        map: map2,
+        position: latlng
+    });
+};
+
+// Renders map based on address (used to render home location)
+function codeAddress() {
+    let address = inputAddress;
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == 'OK') {
+            map.setCenter(results[0].geometry.location);
+            if (marker) {
+                marker.setMap(null);
+            }
+            marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+}
+
+
+// function renderHomeElevation(lat,long){
+//     fetch(`https://api.gpxz.io/v1/elevation/point?lat=${lat}&lon=${long}&api-key=ak_4rLt9ykj_GbgzR3XS651qJnwc`)
+//         .then(res=>res.json())
+//         .then(data=> document.getElementById("homeElevation").innerText = `Elevation is: ~${data.result.elevation}m`)
+
+// }
+
+// Renders 
+function renderOtherSideElevation(lat,long){
+    antiCoordinates = antipodal(lat,long)
+    fetch(`https://api.gpxz.io/v1/elevation/point?lat=${antiCoordinates[0]}&lon=${antiCoordinates[1]}&api-key=ak_4rLt9ykj_GbgzR3XS651qJnwc`)
+        .then(res=>res.json())
+        .then(data=> {
+            document.getElementById("otherSideElevation").innerText = `Elevation is: ${data.result.elevation}m`
+        })
+
+
+}
+
+// render time at home location
+function renderHomeTime(dateObj){
+    document.getElementById("homeTime").innerText = `Time is: ${dateObj}`
+}
+
+function renderOtherTime(dateObj){
+    document.getElementById("otherSideTime").innerText = `Local Time: ${dateObj}`
+
+}
+
 //fetch weather data for other side of the world
-
 let timezone_offset;
-fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=40.71&lon=-73.93&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
-    .then(response => response.json())
-    .then(data => {
+function getWeatherData(lat, long){
+    fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
+        .then(response => response.json())
+        .then(data => {
 
-        let dt;
-        dt = data.current.dt
-        timezone_offset = data.timezone_offset
-        dateObj = formatDT(dt, timezone_offset)
+            let dt;
+            console.log(data)
+            dt = data.current.dt
+            timezone_offset = data.timezone_offset
+            dateObj = formatDT(dt, timezone_offset)
+            // If any weather is already displayed, delete all of those elements and replace with weather of new location
+            if (document.getElementsByClassName("weatherCard").length > 0){
+                Array.from(document.getElementsByClassName("weatherCard")).forEach(e => e.remove())
+                weatherBar = document.createElement("div")
+                weatherBar.className = "weatherBar"
+            }
+            data.hourly.forEach(hour => renderHourlyWeather(hour))
+            renderOtherTime(dateObj)
+            // renderHomeTime(homeDateObj)
 
+        })
+    }
 
-        data.hourly.forEach(hour => renderHourlyWeather(hour))
-
-    })
-
+// takes data of hourly weather and places it into the Weather Card in the OtherSide Display
 function renderHourlyWeather(weatherDetails) {
     let weatherBar = document.getElementById("weatherBar")
+
     let weatherCard = document.createElement("div")
     weatherCard.className = "weatherCard"
     let time = document.createElement("p")
@@ -36,99 +183,17 @@ function renderHourlyWeather(weatherDetails) {
     weatherCard.appendChild(icon)
     weatherCard.appendChild(temp)
     weatherBar.appendChild(weatherCard)
+    // console.log(data)
 }
 
+// Gets icon for a given weather pattern
 function determineIcon(icon) {
     return `https://openweathermap.org/img/wn/${icon}.png`
 }
 
+// Formats date/time based on input from weather API
 function formatDT(dt, timezone_offset) {
     let dateObj = new Date(((dt + timezone_offset) * 1000));
     utcString = dateObj.toUTCString();
     return time = utcString.slice(-12, -7);
-}
-
-
-
-
-// google maps rendering code
-let inputAddress;
-let lat;
-let long;
-
-
-document.getElementsByTagName("form")[0].addEventListener("submit", e => {
-
-    e.preventDefault()
-    inputAddress = document.getElementById("address").value
-
-    document.getElementById("showAddress").append(inputAddress)
-
-    let formattedAddress = inputAddress.replaceAll(" ", "%")
-
-    let query = `https://api.geoapify.com/v1/geocode/search?text=${formattedAddress}&apiKey=ef5a7756a5d946bdae460c509c190f54`
-    console.log(query)
-    fetch(query)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            lat = data.features[0].properties.lat
-            long = data.features[0].properties.lon
-            console.log(lat, long)
-            document.getElementById("newLat").append(lat)
-            document.getElementById("newLong").append(long)
-            codeAddress()
-            codeLatLng(lat, long)
-
-        })
-
-})
-
-let geocoder;
-let map;
-let marker;
-
-function initialize() {
-    geocoder = new google.maps.Geocoder();
-    let latlng = new google.maps.LatLng(-34.397, 150.644);
-    let mapOptions = {
-        zoom: 8,
-        center: latlng
-    }
-    map = new google.maps.Map(document.getElementById("map_canvas1"), mapOptions);
-    map2 = new google.maps.Map(document.getElementById("map_canvas2"), mapOptions);
-
-}
-
-function codeLatLng(latitude, longitude) {
-
-    let latlng = new google.maps.LatLng(-latitude, longitude - 180);
-    map2.setCenter(latlng);
-    // map.setCenter(results[0].geometry.location);
-    // if (marker2) {
-    //   marker.setMap(null);
-    // }
-    marker2 = new google.maps.Marker({
-        map: map2,
-        position: latlng
-    });
-};
-
-
-function codeAddress() {
-    let address = inputAddress;
-    geocoder.geocode({ 'address': address }, function (results, status) {
-        if (status == 'OK') {
-            map.setCenter(results[0].geometry.location);
-            if (marker) {
-                marker.setMap(null);
-            }
-            marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
-            });
-        } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-        }
-    });
 }

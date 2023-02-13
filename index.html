@@ -31,22 +31,29 @@
         </div>
         <br>
         <div>Converted Lat </div>
-        <div id="newLat">
-        </div>
+        <p id="newLat">
+        </p>
         <br>
         <div>Converted Long </div>
-        <div id="newLong">
-        </div>
+        <p id="newLong">
+        </p>
     </div>
 
-    <div class="result homeInfo">
-        <h1>Holding text: "Your home"</h1>
+    <br> 
+    <h1>Holding text: "Your home"</h1>
+
+    <div class="homeInfo">
 
         <div class="homeMap">
             <div id="map_canvas1" style="height:500px; width:100%"></div>
             <!-- <input type="text" id="address" /> -->
             <!-- <button onclick="codeAddress()">Go!</button> -->
             <script src="index.js"></script>
+        </div>
+        <div class="locationInformation">
+            <h3>Country Data or Fish Data</h3>
+            <p id="homeElevation"></p>
+            <p id = "homeTime"></p>
         </div>
     </div>
 
@@ -56,8 +63,8 @@
 
     <div class="result">
         <h1>Holding text: "If you dug a hole and traveled through the Earth, you would arrive in ${}"</h1>
-        <h2>"Local Time: ${}"</h2>
-        <h2>Placeholder position:"Elevation/Depth"</h2>
+        <h2 id = "otherSideTime">"Local Time: ${}"</h2>
+        <h2 id = "otherSideElevation">Placeholder position:"Elevation/Depth"</h2>
         <div class="resultContents">
 
 
@@ -84,8 +91,10 @@
     </div>
 
 
-    </div>
+   <div id = "weather">
     <div id="weatherBar">
+
+    </div>
     </div>
 
 
