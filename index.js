@@ -264,7 +264,7 @@ function renderHourlyWeather(weatherDetails) {
 
     icon.src = imageIconURL
 
-    temp.textContent = weatherDetails.temp
+    temp.textContent = `${weatherDetails.temp}`
     weatherCard.appendChild(time)
     weatherCard.appendChild(icon)
     weatherCard.appendChild(temp)
@@ -274,7 +274,7 @@ function renderHourlyWeather(weatherDetails) {
 
 // Gets icon for a given weather pattern
 function determineIcon(icon) {
-    return `https://openweathermap.org/img/wn/${icon}.png`
+    return `https://openweathermap.org/img/wn/${icon}@2x.png`
 }
 
 // Formats date/time based on input from weather API
