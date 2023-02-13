@@ -65,6 +65,8 @@ function getOtherCountry(antiCoordinates){
             } else {
                 otherCountry = data.results[0].country
                 otherCity = data.results[0].city
+                // append data for country on other side of world
+                getOtherData(otherCountry)
                 document.getElementById("otherCountry").innerText = `If you dug a hole and traveled through the Earth, you would arrive in ${otherCity}, ${otherCountry}`
             }
            
@@ -73,6 +75,36 @@ function getOtherCountry(antiCoordinates){
     return otherCountry;
 }
 
+function getOtherData(country){
+    // fetch(`https://api.api-ninjas.com/v1/country?name=${country}`, {headers: {
+    //     'X-Api-Key': 'F4oBJay/tpdTNseprIXS6w==jeUoJ74InQ3ksOZw'
+    //   }})
+    //     .then(res=>res.json)
+    //     .then(data=> {
+    //         console.log(data)
+    //     })
+    let otherData;
+    $.ajax({
+        method: 'GET',
+        url: `https://api.api-ninjas.com/v1/country?name=${country}`,
+        headers: { 'X-Api-Key': 'F4oBJay/tpdTNseprIXS6w==jeUoJ74InQ3ksOZw'},
+        contentType: 'application/json',
+        success: function(result) {
+            // console.log(result);
+            otherData = result[0]
+            console.log(otherData)
+            locationInformation = document.getElementById("locationInformation")
+            let GDP = document.createElement("p")
+            GDP.innerText = `GDP: ${otherData.gdp}`
+            let population = document.createElement("p")
+            population.innerText = `Population: ${otherData.population}`
+            locationInformation.append(GDP, population)
+        },
+        error: function ajaxError(jqXHR) {
+            console.error('Error: ', jqXHR.responseText);
+        }
+    });
+}
 
 // Gets antipodal lat/long from any input lat/long
 function antipodal(lat, long){
