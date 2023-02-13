@@ -1,6 +1,8 @@
 let inputAddress;
 let lat;
 let long;
+let antiLat;
+let antiLong;
 let geocoder;
 let map;
 let marker;
@@ -20,21 +22,29 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
     fetch(query)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            // console.log(data)
             lat = data.features[0].properties.lat
             long = data.features[0].properties.lon
-            console.log(lat, long)
-            document.getElementById("newLat").append(lat)
-            document.getElementById("newLong").append(long)
+
+            document.getElementById("newLat").innerHTML = lat
+            document.getElementById("newLong").innerHTML=long
             codeAddress()
-            codeLatLng(lat, long)
+            antiCoordinates = antipodal(lat,long)
+            codeLatLng(antiCoordinates[0], antiCoordinates[1])
             renderHomeElevation(lat,long)
-            getWeatherData(lat,long)
+            getWeatherData(antiCoordinates[0], antiCoordinates[1])
         })
 
 })
 
-
+function antipodal(lat, long){
+    antiLat = -lat;
+    antiLong;
+    if (long>0){
+        antiLong = long-180;
+    } else antiLong = long+180
+    return [antiLat, antiLong];
+}
 
 // google maps rendering code
 function initialize() {
@@ -51,7 +61,7 @@ function initialize() {
 
 function codeLatLng(latitude, longitude) {
 
-    let latlng = new google.maps.LatLng(-latitude, longitude - 180);
+    let latlng = new google.maps.LatLng(latitude, longitude);
     map2.setCenter(latlng);
     // map.setCenter(results[0].geometry.location);
     // if (marker2) {
