@@ -134,6 +134,7 @@
 
 #map_canvas2 {
   border-radius: 8px;
+  margin: auto;
 }
 
 .resultContents {
@@ -270,4 +271,77 @@ ul {
 	-webkit-transition: All 0.3s ease;
 	-moz-transition: All 0.3s ease;
 	-o-transition: All 0.3s ease;
+}
+
+#factsTitle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30px;
+}
+
+#facts {
+  justify-content: center;
+  width: 60%;
+  margin: 0 auto;
+}
+
+#cards{
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardContainer{
+  /* border: solid; */
+  background-color: white;
+  width: 200px;
+  border-radius: 8px;
+}
+
+.cardTitle{
+  font-size: 12px;
+  text-align: left;
+  padding-left: 10px;
+  color: #636368;
+}
+
+
+
+#populationFact{
+  font-size: 24px;
+  color: #004080;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#gdpFact{
+  font-size: 24px;
+  color: #004080;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#currencyFact{
+  font-size: 24px;
+  color: #004080;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#internetUsersFact{
+  font-size: 24px;
+  color: #004080;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.cardIcon{
+  text-align: right;
+  padding-right: 10px;
+  color: #636368;
+  margin-bottom: 10px;
 }

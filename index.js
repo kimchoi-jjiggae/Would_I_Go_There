@@ -134,18 +134,34 @@ function getOtherData(country){
         success: function (result) {
             // console.log(result);
             otherData = result[0]
-            console.log(otherData)
-            locationInformation = document.getElementById("locationInformation")
-            let GDP = document.createElement("p")
-            GDP.innerText = `GDP: ${otherData.gdp}`
-            let population = document.createElement("p")
-            population.innerText = `Population: ${otherData.population}`
-            locationInformation.append(GDP, population)
+            // console.log(otherData)
+            renderCountryData(otherData)
+            // locationInformation = document.getElementById("locationInformation")
+            // let GDP = document.createElement("p")
+            // GDP.innerText = `GDP: ${otherData.gdp}`
+            // let population = document.createElement("p")
+            // population.innerText = `Population: ${otherData.population}`
+            // locationInformation.append(GDP, population)
         },
         error: function ajaxError(jqXHR) {
             console.error('Error: ', jqXHR.responseText);
         }
     });
+}
+
+function renderCountryData(otherData){
+    console.log(otherData)
+    let populationFact = document.getElementById("populationFact")
+    let gdpFact = document.getElementById("gdpFact")
+    let currencyFact = document.getElementById("currencyFact")
+    let internetUsersFact = document.getElementById("internetUsersFact")
+    
+    populationFact.textContent =  otherData.population * 1000
+    gdpFact.textContent = otherData.gdp
+    currencyFact.textContent = otherData.currency.name
+    internetUsersFact.textContent = `${otherData.internet_users}%`
+    
+
 }
 
 // Gets antipodal lat/long from any input lat/long
