@@ -12,39 +12,39 @@ let originalTemps = [];
 let otherOcean;
 
 // resize first 3 div panels to equal the size of the window
-function resizeDivs(parentDivs){
-    parentDivs.forEach( parentDiv=>{
+function resizeDivs(parentDivs) {
+    parentDivs.forEach(parentDiv => {
         const myDiv = document.getElementById(parentDiv);
-        myDiv.style.height = window.innerHeight*.9 + 'px'
+        myDiv.style.height = window.innerHeight * .9 + 'px'
         // window.addEventListener('resize', () => myDiv.style.height = window.innerHeight + 'px'); // update the height on window resize
 
         const divHeight = myDiv.offsetHeight;
         const divWidth = myDiv.offsetWidth;
         const elements = myDiv.querySelectorAll('*');
-        
+
 
         elements.forEach(element => {
             const elementHeight = element.offsetHeight;
             const elementWidth = element.offsetWidth;
-            if (elementHeight > .7* divHeight) {
-            element.style.height = '70%';
+            if (elementHeight > .7 * divHeight) {
+                element.style.height = '70%';
             }
             if (elementWidth > divWidth) {
-            element.style.width = '80%';
+                element.style.width = '80%';
             }
-        }) 
-})
+        })
+    })
 }
 
 document.addEventListener("DOMContentLoaded", resizeDivs(["landingPage"]))
 
-document.addEventListener("DOMContentLoaded", (e) =>{
-    document.getElementsByClassName("homeInfo")[0].style.height=window.innerHeight + 'px'
+document.addEventListener("DOMContentLoaded", (e) => {
+    document.getElementsByClassName("homeInfo")[0].style.height = window.innerHeight + 'px'
 
 })
 
-document.addEventListener("DOMContentLoaded", (e) =>{
-    document.getElementsByClassName("diggingPanel")[0].style.height=window.innerHeight + 'px'
+document.addEventListener("DOMContentLoaded", (e) => {
+    document.getElementsByClassName("diggingPanel")[0].style.height = window.innerHeight + 'px'
 
 })
 
@@ -106,7 +106,7 @@ function scrollDown(panelClass) {
     let target = document.querySelector(`.${panelClass}`);
 
     // Calculate the target position
-    let targetPosition = target.offsetTop-50;
+    let targetPosition = target.offsetTop - 50;
     // console.log(typeof(targetPosition-10))
     // console.log("hi")
     // targetPosition = targetPosition;
@@ -149,7 +149,7 @@ function getOtherCountry(antiCoordinates) {
                 getOtherData(otherCountry)
                 document.getElementById("otherCountry").innerText = `Welcome to ${otherCountry}!`
 
-                
+
             }
 
 
@@ -160,35 +160,35 @@ function getOtherCountry(antiCoordinates) {
 
 function renderFishData(otherOcean) {
     console.log(otherOcean)
-    let oceanDataArray; 
+    let oceanDataArray;
 
     fetch("https://kimchoi-jjiggae.github.io/fishData/fishData.json")
-    .then(response => response.json())
-    .then(data => {
-       
-        data.oceanData.forEach(ocean => {
-            console.log(ocean.ocean)
-            if (otherOcean.includes(ocean.ocean)){
-                oceanDataArray = ocean
-      
-                let i = Math.floor(Math.random()* oceanDataArray.fishFacts.length)
-                let randomFishFact = oceanDataArray.fishFacts[i]
-                console.log(randomFishFact)
+        .then(response => response.json())
+        .then(data => {
 
-                let fishName = document.querySelector("#fishName")
-                let fishFact = document.querySelector(".fishOverviewText")
-                let fishImage = document.getElementById("fishiesPlease")
-                fishName.textContent = randomFishFact.fish
-                fishFact.textContent = randomFishFact.fact
-                fishImage.src = randomFishFact.img
+            data.oceanData.forEach(ocean => {
+                console.log(ocean.ocean)
+                if (otherOcean.includes(ocean.ocean)) {
+                    oceanDataArray = ocean
+
+                    let i = Math.floor(Math.random() * oceanDataArray.fishFacts.length)
+                    let randomFishFact = oceanDataArray.fishFacts[i]
+                    console.log(randomFishFact)
+
+                    let fishName = document.querySelector("#fishName")
+                    let fishFact = document.querySelector("#fishOverviewText")
+                    let fishImage = document.getElementById("fishiesPlease")
+                    fishName.textContent = randomFishFact.fish
+                    fishFact.textContent = randomFishFact.fact
+                    fishImage.src = randomFishFact.img
 
 
-            }
+                }
+
+            })
+
 
         })
-        
-        
-    })
 }
 
 
@@ -419,8 +419,8 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
-function refreshPage(){
-    window.scrollTo(0,0)
+function refreshPage() {
+    window.scrollTo(0, 0)
     location.reload()
 }
 
