@@ -14,6 +14,7 @@ let otherCity;
 document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
     e.preventDefault()
+    
 
     // Gets address inputed by user
     inputAddress = document.getElementById("address").value
@@ -22,12 +23,13 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
     // formats address so that it can be put into the API to receive Lat/long
     let formattedAddress = inputAddress.replaceAll(" ", "%")
     let query = `https://api.geoapify.com/v1/geocode/search?text=${formattedAddress}&apiKey=ef5a7756a5d946bdae460c509c190f54`
-
     // fetches Lat/Long of input address
     fetch(query)
         .then(res => res.json())
         .then(data => {
             // gets Lat/Long from API
+            
+
             lat = data.features[0].properties.lat
             long = data.features[0].properties.lon
     
@@ -36,28 +38,38 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
             // Creates map of home address
             codeAddress()
-            scrollDown()
+            scrollDown("currentLocation")
+            // setInterval(scrollDown("diggingPanel"), 20000)
+            // setInterval(scrollDown("result"), 400000)
+
             // Creates antipodal location ased on lat and long
             antiCoordinates = antipodal(lat,long)
             otherCountry = getOtherCountry(antiCoordinates)
             // Creates map of antipodal location
+            
             codeLatLng(antiCoordinates[0], antiCoordinates[1])
 
             // Relaces placeholder elevation with antipodal location
-            // renderOtherSideElevation(lat,long)
             getLocalTime(lat, long)
 
             // Gets weather of antipodal location and renders it (rendering function is nested within the fetch function)
             getWeatherData(antiCoordinates[0], antiCoordinates[1])
+            setTimeout(()=> scrollDown("diggingPanel"), 2000)
+
+            setTimeout(() => scrollDown('result'), 4000)
+            // scrollDown("result")
+            
+
         })
 
 })
 
-function scrollDown(){
-    let target = document.querySelector(".result");
+function scrollDown(panelClass){
+    let target = document.querySelector(`.${panelClass}`);
   
     // Calculate the target position
     let targetPosition = target.offsetTop;
+    console.log("hi")
   
     // Scroll to the target position over a duration of 1000ms (1s)
     window.scroll({
@@ -77,14 +89,14 @@ function getOtherCountry(antiCoordinates){
 
             if (data.results[0].ocean){
                 otherOcean = data.results[0].ocean
-                document.getElementById("otherCountry").innerText = `If you dug a hole and traveled through the Earth, you would arrive in the ${otherOcean}`
+                document.getElementById("otherCountry").innerText = `Welcome to the ${otherOcean}!`
 
             } else {
                 otherCountry = data.results[0].country
                 otherCity = data.results[0].city
                 // append data for country on other side of world
                 getOtherData(otherCountry)
-                document.getElementById("otherCountry").innerText = `If you dug a hole and traveled through the Earth, you would arrive in ${otherCity}, ${otherCountry}`
+                document.getElementById("otherCountry").innerText = `Welcome to ${otherCountry}!`
             }
            
 
@@ -136,7 +148,7 @@ function antipodal(lat, long){
 // Does the INITIAL render of both the home map and the otherSide map based on a placeholder Lat/Long- needs to be put as a script into a div/body tag
 function initialize() {
     geocoder = new google.maps.Geocoder();
-    let latlng = new google.maps.LatLng(-34.397, 150.644);
+    let latlng = new google.maps.LatLng(1.290270, 103.851959);
     let mapOptions = {
         zoom: 8,
         center: latlng
@@ -180,32 +192,8 @@ function codeAddress() {
 }
 
 
-// function renderHomeElevation(lat,long){
-//     fetch(`https://api.gpxz.io/v1/elevation/point?lat=${lat}&lon=${long}&api-key=ak_4rLt9ykj_GbgzR3XS651qJnwc`)
-//         .then(res=>res.json())
-//         .then(data=> document.getElementById("homeElevation").innerText = `Elevation is: ~${data.result.elevation}m`)
-
-// }
-
-// Renders 
-function renderOtherSideElevation(lat,long){
-    antiCoordinates = antipodal(lat,long)
-    fetch(`https://api.gpxz.io/v1/elevation/point?lat=${antiCoordinates[0]}&lon=${antiCoordinates[1]}&api-key=ak_4rLt9ykj_GbgzR3XS651qJnwc`)
-        .then(res=>res.json())
-        .then(data=> {
-            document.getElementById("otherSideElevation").innerText = `Elevation is: ${data.result.elevation}m`
-        })
-
-
-}
-
-// render time at home location
-// function renderHomeTime(dateObj){
-//     document.getElementById("homeTime").innerText = ` ${dateObj}`
-// }
-
 function renderOtherTime(dateObj){
-    document.getElementById("otherSideTime").innerText = `Time at your current location: ${dateObj}`
+    document.getElementById("otherSideTime").innerText = `Time at your new location: ${dateObj}`
 
 }
 
@@ -229,7 +217,6 @@ function getWeatherData(lat, long){
             data.hourly.forEach(hour => renderHourlyWeather(hour))
             renderOtherTime(dateObj)
             // renderHomeTime(homeDateObj)
-
         })
     }
 
@@ -283,3 +270,5 @@ function formatDT(dt, timezone_offset) {
     utcString = dateObj.toUTCString();
     return time = utcString.slice(-12, -7);
 }
+
+codeLatLng(-1.29027, -76.148041)

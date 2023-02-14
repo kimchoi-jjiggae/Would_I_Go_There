@@ -84,6 +84,9 @@
 
 }
 
+.diggingPanel{
+  margin-top:10rem;
+}
 .resultContents {
   display: flex;
 }
