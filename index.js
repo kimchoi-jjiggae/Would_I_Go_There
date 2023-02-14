@@ -88,12 +88,20 @@ function getOtherCountry(antiCoordinates) {
     fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${antiCoordinates[0]}&lon=${antiCoordinates[1]}&format=json&apiKey=ef5a7756a5d946bdae460c509c190f54`)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             if (data.results[0].ocean) {
                 otherOcean = data.results[0].ocean
                 document.getElementById("otherCountry").innerText = `Welcome to the ${otherOcean}!`
                 getOceanData(otherOcean)
-                renderFishData(otherOcean, fishData)
+                renderFishData(otherOcean)
+
+                //hide the country data div
+                const countryDataDiv = document.getElementById("facts")
+                countryDataDiv.style.display = 'none';
+
+                //show the ocean data div
+                const fishDataDiv = document.getElementById("fishSection")
+                fishDataDiv.style.display = 'block';
+
 
             } else {
                 otherCountry = data.results[0].country
@@ -101,6 +109,8 @@ function getOtherCountry(antiCoordinates) {
                 // append data for country on other side of world
                 getOtherData(otherCountry)
                 document.getElementById("otherCountry").innerText = `Welcome to ${otherCountry}!`
+
+                
             }
 
 
@@ -108,21 +118,38 @@ function getOtherCountry(antiCoordinates) {
     return otherCountry;
 }
 
-let fishData
-fetch("http://localhost:3000/oceanData")
+
+function renderFishData(otherOcean) {
+    console.log(otherOcean)
+    let oceanDataArray; 
+
+    fetch("https://kimchoi-jjiggae.github.io/fishData/fishData.json")
     .then(response => response.json())
     .then(data => {
-        fishData = data
+       
+        data.oceanData.forEach(ocean => {
+            console.log(ocean.ocean)
+            if (otherOcean.includes(ocean.ocean)){
+                oceanDataArray = ocean
+      
+                let i = Math.floor(Math.random()* oceanDataArray.fishFacts.length)
+                let randomFishFact = oceanDataArray.fishFacts[i]
+                console.log(randomFishFact)
+
+                let fishName = document.querySelector("#fishName")
+                let fishFact = document.querySelector(".fishOverviewText")
+                let fishImage = document.getElementById("fishiesPlease")
+                fishName.textContent = randomFishFact.fish
+                fishFact.textContent = randomFishFact.fact
+                fishImage.src = randomFishFact.img
+
+
+            }
+
+        })
+        
         
     })
-
-
-function renderFishData(otherOcean, fishData) {
-    //otherOcean = the name of the ocean from 
-    console.log(otherOcean)
-    console.log(fishData)
-
-
 }
 
 
@@ -353,6 +380,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
-
+function refreshPage(){
+    window.scrollTo(0,0)
+    location.reload()
+}
 
 
