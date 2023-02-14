@@ -11,6 +11,43 @@ let otherCity;
 let originalTemps = [];
 let otherOcean;
 
+// resize first 3 div panels to equal the size of the window
+function resizeDivs(parentDivs){
+    parentDivs.forEach( parentDiv=>{
+        const myDiv = document.getElementById(parentDiv);
+        myDiv.style.height = window.innerHeight*.9 + 'px'
+        // window.addEventListener('resize', () => myDiv.style.height = window.innerHeight + 'px'); // update the height on window resize
+
+        const divHeight = myDiv.offsetHeight;
+        const divWidth = myDiv.offsetWidth;
+        const elements = myDiv.querySelectorAll('*');
+        
+
+        elements.forEach(element => {
+            const elementHeight = element.offsetHeight;
+            const elementWidth = element.offsetWidth;
+            if (elementHeight > .7* divHeight) {
+            element.style.height = '70%';
+            }
+            if (elementWidth > divWidth) {
+            element.style.width = '80%';
+            }
+        }) 
+})
+}
+
+document.addEventListener("DOMContentLoaded", resizeDivs(["landingPage"]))
+
+document.addEventListener("DOMContentLoaded", (e) =>{
+    document.getElementsByClassName("homeInfo")[0].style.height=window.innerHeight + 'px'
+
+})
+
+document.addEventListener("DOMContentLoaded", (e) =>{
+    document.getElementsByClassName("diggingPanel")[0].style.height=window.innerHeight + 'px'
+
+})
+
 document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
     e.preventDefault()
@@ -69,8 +106,10 @@ function scrollDown(panelClass) {
     let target = document.querySelector(`.${panelClass}`);
 
     // Calculate the target position
-    let targetPosition = target.offsetTop;
+    let targetPosition = target.offsetTop-50;
+    // console.log(typeof(targetPosition-10))
     // console.log("hi")
+    // targetPosition = targetPosition;
 
 
     // Scroll to the target position over a duration of 1000ms (1s)

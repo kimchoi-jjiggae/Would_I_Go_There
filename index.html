@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script defer src="index.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3m8GB4KsIQYIJzqB7PXdTCzrBHPWZlR0"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -13,20 +15,17 @@
 <body onload="initialize()" class="mainPage">
     <div id="landingPage">
         <h1 id="webpageTitle">
-            What is directly on the other side of the world?
+            What's on the other side of the world?
         </h1>
+        <!-- <div  -->
+            <img id="webpageImage"src="images/world 1.svg">
+        <!-- </div> -->
+        <form class="addressInput">
+            <!-- <label>Current Address</label> -->
+            <!-- <i class="fa-regular fa-magnifying-glass"></i> -->
+            <input id="address" placeholder="Where do you live?" type="text" />
+        </form>
     </div>
-    <div id="webpageImage">
-        <img src="images/world 1.svg">
-    </div>
-
-
-    <form class="addressInput">
-        <!-- <label>Current Address</label> -->
-        <!-- <i class="fa-regular fa-magnifying-glass"></i> -->
-        <input id="address" placeholder="Where do you live?" type="text" />
-    </form>
-
 
     <div class="displayAddressInput">
 
@@ -47,10 +46,10 @@
 
     <br>
     <br>
-    <h1 class="currentLocation">Current Location</h1>
+
 
     <div class="homeInfo">
-
+        <h1 class="currentLocation">Current Location</h1>
         <div class="homeMap">
             <div id="map_canvas1" style="height:500px; width:60%"></div>
             <!-- <input type="text" id="address" /> -->
@@ -68,130 +67,125 @@
         <h1> Let's Start Digging </h1>
         <img src="./images/digging.svg" />
         <h3> Where will we end up? </h3>
+    </div>
+
+    <div class="result">
+        <h1 id="otherCountry">Welcome to Singapore!</h1>
+        <h2 id="otherSideTime">Local Time:</h2>
+        <div class="resultContents">
 
 
-
-        <div class="result">
-            <h1 id="otherCountry">Welcome to Singapore!</h1>
-            <h2 id="otherSideTime">Local Time:</h2>
-            <div class="resultContents">
-
-
-                <div class="otherSideOfTheWorld">
-                    <div id="map_canvas2" style="height:500px; width: 60%"></div>
-                    <!-- <input type="text" id="address" />
-                    <button onclick="codeAddress()">Go!</button> -->
-                    <script src="index.js"></script>
-                </div>
-
-
-
-
-                <!-- <div id="locationInformation" class="locationInformation">
-                    <h3 class="otherData">Country Data or Fish Data</h3>
-                </div> -->
+            <div class="otherSideOfTheWorld">
+                <div id="map_canvas2" style="height:500px; width: 60%"></div>
+                <!-- <input type="text" id="address" />
+                <button onclick="codeAddress()">Go!</button> -->
+                <script src="index.js"></script>
             </div>
+
+
+
+
+            <!-- <div id="locationInformation" class="locationInformation">
+                <h3 class="otherData">Country Data or Fish Data</h3>
+            </div> -->
         </div>
+    </div>
 
 
-        <div id="weather">
-            <div id="weatherTitle">
-                <h3>Weather</h3>
+    <div id="weather">
+        <div id="weatherTitle">
+            <h3>Weather</h3>
 
-                <div id="toggleButton">
-                    <label class="switch">
-                        <input class="switch-input" type="checkbox" />
-                        <span class="switch-label" data-on="F" data-off="C"></span>
-                        <span class="switch-handle"></span>
-                    </label>
-                </div>
-
-            </div>
-            <div id="weatherBar">
-
-            </div>
-        </div>
-
-        <div id="facts">
-            <div id="factsTitle">
-                <h3>Facts</h3>
-            </div>
-            <div id="cards">
-                <div class="cardContainer">
-                    <div class="cardTitle">
-                        <h3>Population</h3>
-                    </div>
-                    <div id="populationFact" class="cardFact">
-                        <p>Fact</p>
-                    </div>
-                    <div class="cardIcon">
-                        <i class="fa-solid fa-lg fa-user"></i>
-                    </div>
-                </div>
-
-                <div class="cardContainer">
-                    <div class="cardTitle">
-                        <h3>GDP</h3>
-                    </div>
-                    <div id="gdpFact" class="cardFact">
-                        <p>Fact</p>
-                    </div>
-                    <div class="cardIcon">
-                        <i class="fa-solid fa-lg fa-chart-line"></i>
-                    </div>
-                </div>
-
-                <div class="cardContainer">
-                    <div class="cardTitle">
-                        <h3>Currency</h3>
-                    </div>
-                    <div id="currencyFact" class="cardFact">
-                        <p>Fact</p>
-                    </div>
-                    <div class="cardIcon">
-                        <i class="fa-solid fa-lg fa-money-bill"></i>
-                    </div>
-                </div>
-
-                <div class="cardContainer">
-                    <div class="cardTitle">
-                        <h3>Internet Users</h3>
-                    </div>
-                    <div id="internetUsersFact" class="cardFact">
-                        <p>Fact</p>
-                    </div>
-                    <div class="cardIcon">
-                        <i class="fa-solid  fa-lg fa-wifi"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="fishSection">
-            <div id="fishTitle">
-                <h3>Discover more about life in the ocean!</h3>
-            </div>
-            <div id="fishInformation">
-                <div id="fishText">
-                    <h3>Turtle</h3>
-                    <p id="fishOverview">Overview</p>
-                    <p id="fishOverviewText">Lorem ipsum dolor sit amet consectetur. Non interdum malesuada sed mi.
-                        Tortor lorem id dignissim diam mi adipiscing pulvinar aliquet sit. Dui cras vitae vestibulum sed
-                        morbi ac. Id vitae ac quisque sed mattis iaculis.</p>
-                </div>
-                <div id="fishImg">
-                    <img src="https://i.pinimg.com/originals/27/11/45/27114591b632f74dbf33dbe0f097a001.jpg">
-
-                </div>
-               
-            </div>
-            <div id="donate">
-                <a href="https://oceanconservancy.org/" target="_blank"><button>Donate</button></a>
+            <div id="toggleButton">
+                <label class="switch">
+                    <input class="switch-input" type="checkbox" />
+                    <span class="switch-label" data-on="F" data-off="C"></span>
+                    <span class="switch-handle"></span>
+                </label>
             </div>
 
         </div>
+        <div id="weatherBar">
 
+        </div>
+    </div>
 
+    <div id="facts">
+        <div id="factsTitle">
+            <h3>Facts</h3>
+        </div>
+        <div id="cards">
+            <div class="cardContainer">
+                <div class="cardTitle">
+                    <h3>Population</h3>
+                </div>
+                <div id="populationFact" class="cardFact">
+                    <p>Fact</p>
+                </div>
+                <div class="cardIcon">
+                    <i class="fa-solid fa-lg fa-user"></i>
+                </div>
+            </div>
+
+            <div class="cardContainer">
+                <div class="cardTitle">
+                    <h3>GDP</h3>
+                </div>
+                <div id="gdpFact" class="cardFact">
+                    <p>Fact</p>
+                </div>
+                <div class="cardIcon">
+                    <i class="fa-solid fa-lg fa-chart-line"></i>
+                </div>
+            </div>
+
+            <div class="cardContainer">
+                <div class="cardTitle">
+                    <h3>Currency</h3>
+                </div>
+                <div id="currencyFact" class="cardFact">
+                    <p>Fact</p>
+                </div>
+                <div class="cardIcon">
+                    <i class="fa-solid fa-lg fa-money-bill"></i>
+                </div>
+            </div>
+
+            <div class="cardContainer">
+                <div class="cardTitle">
+                    <h3>Internet Users</h3>
+                </div>
+                <div id="internetUsersFact" class="cardFact">
+                    <p>Fact</p>
+                </div>
+                <div class="cardIcon">
+                    <i class="fa-solid  fa-lg fa-wifi"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fishSection">
+        <div id="fishTitle">
+            <h3>Discover more about life in the ocean!</h3>
+        </div>
+        <div id="fishInformation">
+            <div id="fishText">
+                <h3>Turtle</h3>
+                <p id="fishOverview">Overview</p>
+                <p id="fishOverviewText">Lorem ipsum dolor sit amet consectetur. Non interdum malesuada sed mi.
+                    Tortor lorem id dignissim diam mi adipiscing pulvinar aliquet sit. Dui cras vitae vestibulum sed
+                    morbi ac. Id vitae ac quisque sed mattis iaculis.</p>
+            </div>
+            <div id="fishImg">
+                <img src="https://i.pinimg.com/originals/27/11/45/27114591b632f74dbf33dbe0f097a001.jpg">
+
+            </div>
+           
+        </div>
+        <div id="donate">
+            <a href="https://oceanconservancy.org/" target="_blank"><button>Donate</button></a>
+        </div>
 
 </body>
 
