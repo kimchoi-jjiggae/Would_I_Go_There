@@ -96,6 +96,9 @@
   font-size: 30px;
 }
 
+.diggingPanel{
+  margin-top:10rem;
+}
 .resultContents {
   display: flex;
 }
@@ -120,7 +123,9 @@
   /* margin-right: 10px; */
 
 }
-
+.turtlePic{
+  height:200px
+}
 #map_canvas1 {
   border-radius: 8px;
   margin: auto;
