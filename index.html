@@ -45,7 +45,7 @@
     </div>
 
 
-    <br> 
+    <br>
     <br>
     <h1>Current Location</h1>
 
@@ -56,7 +56,7 @@
             <!-- <input type="text" id="address" /> -->
             <!-- <button onclick="codeAddress()">Go!</button> -->
             <!-- <span id="homeCity">Current City</span> -->
-            <p id = "homeTime">Time at your current location:</p>
+            <p id="homeTime">Time at your current location:</p>
             <script src="index.js"></script>
         </div>
     </div>
@@ -90,7 +90,15 @@
     <div id="weather">
         <div id="weatherTitle">
             <h3>Weather</h3>
-            <button>Toggle</button>
+
+            <div id="toggleButton">
+                <label class="switch">
+                    <input class="switch-input" type="checkbox" />
+                    <span class="switch-label" data-on="F" data-off="C"></span>
+                    <span class="switch-handle"></span>
+                </label>
+            </div>
+
         </div>
         <div id="weatherBar">
 
