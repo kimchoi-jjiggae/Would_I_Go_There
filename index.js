@@ -90,6 +90,7 @@ function getOtherCountry(antiCoordinates){
             if (data.results[0].ocean){
                 otherOcean = data.results[0].ocean
                 document.getElementById("otherCountry").innerText = `Welcome to the ${otherOcean}!`
+                getOceanData(otherOcean)
 
             } else {
                 otherCountry = data.results[0].country
@@ -104,6 +105,16 @@ function getOtherCountry(antiCoordinates){
     return otherCountry;
 }
 
+function getOceanData(otherOcean){
+    locationInformation = document.getElementById("locationInformation")
+    let fishFact = document.createElement("p")
+    fishFact.innerText = `Did you know the ${otherOcean} has a gajillion fish and a tiny turtle that looks like this? Plz save it!`
+    let fishPic = document.createElement("img")
+    fishPic.src = `./images/turtle.png`
+    fishPic.className = "turtlePic"
+    locationInformation.append(fishFact, fishPic)
+
+}
 function getOtherData(country){
     // fetch(`https://api.api-ninjas.com/v1/country?name=${country}`, {headers: {
     //     'X-Api-Key': 'F4oBJay/tpdTNseprIXS6w==jeUoJ74InQ3ksOZw'
