@@ -47,7 +47,7 @@
 
     <br>
     <br>
-    <h1 class= "currentLocation">Current Location</h1>
+    <h1 class="currentLocation">Current Location</h1>
 
     <div class="homeInfo">
 
@@ -64,53 +64,108 @@
     </div>
     <br>
     <br>
-    <div class = "diggingPanel">
+    <div class="diggingPanel">
         <h1> Let's Start Digging </h1>
-        <img src="./images/digging.svg"/>
+        <img src="./images/digging.svg" />
         <h3> Where will we end up? </h3>
 
 
 
-    <div class="result">
-        <h1 id="otherCountry">Welcome to Singapore!</h1>
-        <h2 id="otherSideTime">Local Time:</h2>
-        <div class="resultContents">
+        <div class="result">
+            <h1 id="otherCountry">Welcome to Singapore!</h1>
+            <h2 id="otherSideTime">Local Time:</h2>
+            <div class="resultContents">
 
 
-            <div class="otherSideOfTheWorld">
-                <div id="map_canvas2" style="height:500px; width: 100%"></div>
-                <!-- <input type="text" id="address" />
+                <div class="otherSideOfTheWorld">
+                    <div id="map_canvas2" style="height:500px; width: 60%"></div>
+                    <!-- <input type="text" id="address" />
                     <button onclick="codeAddress()">Go!</button> -->
-                <script src="index.js"></script>
-            </div>
+                    <script src="index.js"></script>
+                </div>
 
 
 
 
-            <div id="locationInformation" class="locationInformation">
-                <h3 class="otherData">Country Data or Fish Data</h3>
+                <!-- <div id="locationInformation" class="locationInformation">
+                    <h3 class="otherData">Country Data or Fish Data</h3>
+                </div> -->
             </div>
         </div>
-    </div>
 
 
-    <div id="weather">
-        <div id="weatherTitle">
-            <h3>Weather</h3>
+        <div id="weather">
+            <div id="weatherTitle">
+                <h3>Weather</h3>
 
-            <div id="toggleButton">
-                <label class="switch">
-                    <input class="switch-input" type="checkbox" />
-                    <span class="switch-label" data-on="F" data-off="C"></span>
-                    <span class="switch-handle"></span>
-                </label>
+                <div id="toggleButton">
+                    <label class="switch">
+                        <input class="switch-input" type="checkbox" />
+                        <span class="switch-label" data-on="F" data-off="C"></span>
+                        <span class="switch-handle"></span>
+                    </label>
+                </div>
+
             </div>
+            <div id="weatherBar">
 
+            </div>
         </div>
-        <div id="weatherBar">
 
+        <div id="facts">
+            <div id="factsTitle">
+                <h3>Facts</h3>
+            </div>
+            <div id="cards">
+                <div class="cardContainer">
+                    <div class="cardTitle">
+                        <h3>Population</h3>
+                    </div>
+                    <div id="populationFact" class="cardFact">
+                        <p>Fact</p>
+                    </div>
+                    <div class="cardIcon">
+                        <i class="fa-solid fa-lg fa-user"></i>
+                    </div>
+                </div>
+
+                <div class="cardContainer">
+                    <div class="cardTitle">
+                        <h3>GDP</h3>
+                    </div>
+                    <div id="gdpFact" class="cardFact">
+                        <p>Fact</p>
+                    </div>
+                    <div class="cardIcon">
+                        <i class="fa-solid fa-lg fa-chart-line"></i>
+                    </div>
+                </div>
+
+                <div class="cardContainer">
+                    <div class="cardTitle">
+                        <h3>Currency</h3>
+                    </div>
+                    <div id="currencyFact" class="cardFact">
+                        <p>Fact</p>
+                    </div>
+                    <div class="cardIcon">
+                        <i class="fa-solid fa-lg fa-money-bill"></i>
+                    </div>
+                </div>
+
+                <div class="cardContainer">
+                    <div class="cardTitle">
+                        <h3>Internet Users</h3>
+                    </div>
+                    <div id="internetUsersFact" class="cardFact">
+                        <p>Fact</p>
+                    </div>
+                    <div class="cardIcon">
+                        <i class="fa-solid  fa-lg fa-wifi"></i>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
 
 
