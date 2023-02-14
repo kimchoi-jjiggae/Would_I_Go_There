@@ -345,3 +345,71 @@ ul {
   color: #636368;
   margin-bottom: 10px;
 }
+
+#fishSection{
+  justify-content: center;
+  width: 60%;
+  margin: 0 auto;
+}
+
+#fishTitle{
+  font-size: 50px;
+}
+
+#fishInformation{
+  display: flex;
+  align-items: center;
+}
+
+#fishText{
+  text-align: left;
+  padding-right: 20px;
+}
+
+#fishText h3{
+  font-size: 50px;
+  
+}
+
+#fishText #fishOverview {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+#fishImg img{
+  border-radius: 20px;
+  width: 500px;
+  height: auto;
+}
+
+#donate{
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#donate button{
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: white;
+  color: #004080;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 100px;
+  font-size: 30px;
+  transition: 0.5s;
+  margin-top: 20px;
+}
+
+#donate button:hover{
+  background-color: #60D29F;
+  color: #004080;
+}
+
+a{
+  text-decoration: none;
+}

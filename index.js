@@ -8,12 +8,13 @@ let map;
 let marker;
 let otherCountry;
 let otherCity;
-let originalTemps=[];
+let originalTemps = [];
+let otherOcean;
 
 document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
     e.preventDefault()
-    
+
 
     // Gets address inputed by user
     inputAddress = document.getElementById("address").value
@@ -27,7 +28,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
         .then(res => res.json())
         .then(data => {
             // gets Lat/Long from API
-            
+
 
             lat = data.features[0].properties.lat
             long = data.features[0].properties.lon
@@ -45,7 +46,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
             antiCoordinates = antipodal(lat, long)
             otherCountry = getOtherCountry(antiCoordinates)
             // Creates map of antipodal location
-            
+
             codeLatLng(antiCoordinates[0], antiCoordinates[1])
 
             // Relaces placeholder elevation with antipodal location
@@ -53,24 +54,24 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
             // Gets weather of antipodal location and renders it (rendering function is nested within the fetch function)
             getWeatherData(antiCoordinates[0], antiCoordinates[1])
-            setTimeout(()=> scrollDown("diggingPanel"), 2000)
+            setTimeout(() => scrollDown("diggingPanel"), 2000)
 
             setTimeout(() => scrollDown('result'), 4000)
             // scrollDown("result")
-            
+
 
         })
 
 })
 
 
-function scrollDown(panelClass){
+function scrollDown(panelClass) {
     let target = document.querySelector(`.${panelClass}`);
-  
+
     // Calculate the target position
     let targetPosition = target.offsetTop;
-    console.log("hi")
-  
+    // console.log("hi")
+
 
     // Scroll to the target position over a duration of 1000ms (1s)
     window.scroll({
@@ -87,11 +88,12 @@ function getOtherCountry(antiCoordinates) {
     fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${antiCoordinates[0]}&lon=${antiCoordinates[1]}&format=json&apiKey=ef5a7756a5d946bdae460c509c190f54`)
         .then(res => res.json())
         .then(data => {
-
+            console.log(data)
             if (data.results[0].ocean) {
                 otherOcean = data.results[0].ocean
                 document.getElementById("otherCountry").innerText = `Welcome to the ${otherOcean}!`
                 getOceanData(otherOcean)
+                renderFishData(otherOcean, fishData)
 
             } else {
                 otherCountry = data.results[0].country
@@ -106,18 +108,36 @@ function getOtherCountry(antiCoordinates) {
     return otherCountry;
 }
 
+let fishData
+fetch("http://localhost:3000/oceanData")
+    .then(response => response.json())
+    .then(data => {
+        fishData = data
+        
+    })
 
-function getOceanData(otherOcean){
-    locationInformation = document.getElementById("locationInformation")
-    let fishFact = document.createElement("p")
-    fishFact.innerText = `Did you know the ${otherOcean} has a gajillion fish and a tiny turtle that looks like this? Plz save it!`
-    let fishPic = document.createElement("img")
-    fishPic.src = `./images/turtle.png`
-    fishPic.className = "turtlePic"
-    locationInformation.append(fishFact, fishPic)
+
+function renderFishData(otherOcean, fishData) {
+    //otherOcean = the name of the ocean from 
+    console.log(otherOcean)
+    console.log(fishData)
+
 
 }
-function getOtherData(country){
+
+
+
+function getOceanData(otherOcean) {
+    // locationInformation = document.getElementById("locationInformation")
+    // let fishFact = document.createElement("p")
+    // fishFact.innerText = `Did you know the ${otherOcean} has a gajillion fish and a tiny turtle that looks like this? Plz save it!`
+    // let fishPic = document.createElement("img")
+    // fishPic.src = `./images/turtle.png`
+    // fishPic.className = "turtlePic"
+    // locationInformation.append(fishFact, fishPic)
+}
+
+function getOtherData(country) {
     // fetch(`https://api.api-ninjas.com/v1/country?name=${country}`, {headers: {
     //     'X-Api-Key': 'F4oBJay/tpdTNseprIXS6w==jeUoJ74InQ3ksOZw'
     //   }})
@@ -132,16 +152,11 @@ function getOtherData(country){
         headers: { 'X-Api-Key': 'F4oBJay/tpdTNseprIXS6w==jeUoJ74InQ3ksOZw' },
         contentType: 'application/json',
         success: function (result) {
-            // console.log(result);
+
             otherData = result[0]
-            // console.log(otherData)
+
             renderCountryData(otherData)
-            // locationInformation = document.getElementById("locationInformation")
-            // let GDP = document.createElement("p")
-            // GDP.innerText = `GDP: ${otherData.gdp}`
-            // let population = document.createElement("p")
-            // population.innerText = `Population: ${otherData.population}`
-            // locationInformation.append(GDP, population)
+
         },
         error: function ajaxError(jqXHR) {
             console.error('Error: ', jqXHR.responseText);
@@ -149,18 +164,18 @@ function getOtherData(country){
     });
 }
 
-function renderCountryData(otherData){
+function renderCountryData(otherData) {
     console.log(otherData)
     let populationFact = document.getElementById("populationFact")
     let gdpFact = document.getElementById("gdpFact")
     let currencyFact = document.getElementById("currencyFact")
     let internetUsersFact = document.getElementById("internetUsersFact")
-    
-    populationFact.textContent =  otherData.population * 1000
+
+    populationFact.textContent = otherData.population * 1000
     gdpFact.textContent = otherData.gdp
     currencyFact.textContent = otherData.currency.name
     internetUsersFact.textContent = `${otherData.internet_users}%`
-    
+
 
 }
 
@@ -224,7 +239,7 @@ function codeAddress() {
 
 
 
-function renderOtherTime(dateObj){
+function renderOtherTime(dateObj) {
     document.getElementById("otherSideTime").innerText = `Time at your new location: ${dateObj}`
 
 
@@ -314,7 +329,7 @@ function formatDT(dt, timezone_offset) {
 //toggle button f/c situation
 document.addEventListener("DOMContentLoaded", () => {
     let temperatureID = true;
-    
+
     const button = document.querySelector(".switch-input")
 
     button.addEventListener("click", function (e) {
@@ -326,13 +341,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const myParagraphs = document.getElementsByClassName("temps")
         // console.log(originalTemps[0].textContent)
         if (temperatureID) {
-            Array.from(myParagraphs).forEach((e,i)=>e.textContent=parseInt(originalTemps[i]*1.8+32))
+            Array.from(myParagraphs).forEach((e, i) => e.textContent = parseInt(originalTemps[i] * 1.8 + 32))
             temperatureID = false
         } else {
-            Array.from(myParagraphs).forEach((e,i)=>e.textContent=originalTemps[i])
+            Array.from(myParagraphs).forEach((e, i) => e.textContent = originalTemps[i])
             temperatureID = true
         }
-        
+
 
 
     })
