@@ -8,8 +8,7 @@ let map;
 let marker;
 let otherCountry;
 let otherCity;
-
-
+let originalTemps=[];
 
 document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
@@ -32,7 +31,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
             lat = data.features[0].properties.lat
             long = data.features[0].properties.lon
-    
+
             // document.getElementById("newLat").innerHTML = lat
             // document.getElementById("newLong").innerHTML=long
 
@@ -43,7 +42,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
             // setInterval(scrollDown("result"), 400000)
 
             // Creates antipodal location ased on lat and long
-            antiCoordinates = antipodal(lat,long)
+            antiCoordinates = antipodal(lat, long)
             otherCountry = getOtherCountry(antiCoordinates)
             // Creates map of antipodal location
             
@@ -64,6 +63,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
 })
 
+
 function scrollDown(panelClass){
     let target = document.querySelector(`.${panelClass}`);
   
@@ -71,23 +71,24 @@ function scrollDown(panelClass){
     let targetPosition = target.offsetTop;
     console.log("hi")
   
+
     // Scroll to the target position over a duration of 1000ms (1s)
     window.scroll({
-      top: targetPosition,
-      behavior: "smooth"
+        top: targetPosition,
+        behavior: "smooth"
     });
 
     // scrolldelay = setTimeout(scrollDown,10)
 
-      
+
 }
 // gets antipodal country and render it in placeholder div
-function getOtherCountry(antiCoordinates){
+function getOtherCountry(antiCoordinates) {
     fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${antiCoordinates[0]}&lon=${antiCoordinates[1]}&format=json&apiKey=ef5a7756a5d946bdae460c509c190f54`)
-        .then(res=> res.json())
+        .then(res => res.json())
         .then(data => {
 
-            if (data.results[0].ocean){
+            if (data.results[0].ocean) {
                 otherOcean = data.results[0].ocean
                 document.getElementById("otherCountry").innerText = `Welcome to the ${otherOcean}!`
                 getOceanData(otherOcean)
@@ -99,11 +100,12 @@ function getOtherCountry(antiCoordinates){
                 getOtherData(otherCountry)
                 document.getElementById("otherCountry").innerText = `Welcome to ${otherCountry}!`
             }
-           
+
 
         })
     return otherCountry;
 }
+
 
 function getOceanData(otherOcean){
     locationInformation = document.getElementById("locationInformation")
@@ -127,9 +129,9 @@ function getOtherData(country){
     $.ajax({
         method: 'GET',
         url: `https://api.api-ninjas.com/v1/country?name=${country}`,
-        headers: { 'X-Api-Key': 'F4oBJay/tpdTNseprIXS6w==jeUoJ74InQ3ksOZw'},
+        headers: { 'X-Api-Key': 'F4oBJay/tpdTNseprIXS6w==jeUoJ74InQ3ksOZw' },
         contentType: 'application/json',
-        success: function(result) {
+        success: function (result) {
             // console.log(result);
             otherData = result[0]
             console.log(otherData)
@@ -147,12 +149,12 @@ function getOtherData(country){
 }
 
 // Gets antipodal lat/long from any input lat/long
-function antipodal(lat, long){
+function antipodal(lat, long) {
     antiLat = -lat;
     antiLong;
-    if (long>0){
-        antiLong = long-180;
-    } else antiLong = long+180
+    if (long > 0) {
+        antiLong = long - 180;
+    } else antiLong = long + 180
     return [antiLat, antiLong];
 }
 
@@ -203,14 +205,19 @@ function codeAddress() {
 }
 
 
+
+
+
 function renderOtherTime(dateObj){
     document.getElementById("otherSideTime").innerText = `Time at your new location: ${dateObj}`
 
+
 }
 
+let temperatureConversionArray = []
 //fetch weather data for other side of the world
 let timezone_offset;
-function getWeatherData(lat, long){
+function getWeatherData(lat, long) {
     fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
         .then(response => response.json())
         .then(data => {
@@ -220,29 +227,30 @@ function getWeatherData(lat, long){
             timezone_offset = data.timezone_offset
             dateObj = formatDT(dt, timezone_offset)
             // If any weather is already displayed, delete all of those elements and replace with weather of new location
-            if (document.getElementsByClassName("weatherCard").length > 0){
+            if (document.getElementsByClassName("weatherCard").length > 0) {
                 Array.from(document.getElementsByClassName("weatherCard")).forEach(e => e.remove())
                 weatherBar = document.createElement("div")
                 weatherBar.className = "weatherBar"
             }
             data.hourly.forEach(hour => renderHourlyWeather(hour))
+            // data.hourly.forEach(hour => console.log(hour.temp))
             renderOtherTime(dateObj)
             // renderHomeTime(homeDateObj)
         })
-    }
+}
 
-    function getLocalTime(lat, long){
-        fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
-            .then(response => response.json())
-            .then(data => {
-    
-                let dt;
-                dt = data.current.dt
-                timezone_offset = data.timezone_offset
-                dateObj = formatDT(dt, timezone_offset)
-                document.getElementById("homeTime").innerText = `Time at your current location:: ${dateObj}`            
-            })
-        }
+function getLocalTime(lat, long) {
+    fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&units=metric&appid=be2354ee5a7e54a4a66d585d0b51ea8c`)
+        .then(response => response.json())
+        .then(data => {
+
+            let dt;
+            dt = data.current.dt
+            timezone_offset = data.timezone_offset
+            dateObj = formatDT(dt, timezone_offset)
+            document.getElementById("homeTime").innerText = `Time at your current location:: ${dateObj}`
+        })
+}
 
 // takes data of hourly weather and places it into the Weather Card in the OtherSide Display
 function renderHourlyWeather(weatherDetails) {
@@ -253,6 +261,7 @@ function renderHourlyWeather(weatherDetails) {
     let time = document.createElement("p")
     let icon = document.createElement("img")
     let temp = document.createElement("p")
+    temp.className = "temps"
     let imageIconURL = determineIcon(weatherDetails.weather[0].icon)
 
     let hourlyTimeDT = weatherDetails.dt
@@ -262,17 +271,19 @@ function renderHourlyWeather(weatherDetails) {
 
     icon.src = imageIconURL
 
-    temp.textContent = weatherDetails.temp
+    temp.textContent = parseInt(`${weatherDetails.temp}`)
     weatherCard.appendChild(time)
     weatherCard.appendChild(icon)
     weatherCard.appendChild(temp)
+    originalTemps.push(temp.textContent)
     weatherBar.appendChild(weatherCard)
-    // console.log(data)
+
+
 }
 
 // Gets icon for a given weather pattern
 function determineIcon(icon) {
-    return `https://openweathermap.org/img/wn/${icon}.png`
+    return `https://openweathermap.org/img/wn/${icon}@2x.png`
 }
 
 // Formats date/time based on input from weather API
@@ -282,4 +293,35 @@ function formatDT(dt, timezone_offset) {
     return time = utcString.slice(-12, -7);
 }
 
-codeLatLng(-1.29027, -76.148041)
+
+
+//toggle button f/c situation
+document.addEventListener("DOMContentLoaded", () => {
+    let temperatureID = true;
+    
+    const button = document.querySelector(".switch-input")
+
+    button.addEventListener("click", function (e) {
+        // if (originalTemps==undefined){
+        //     console.log('hi')
+        //     originalTemps = Array.from(document.getElementsByClassName("temps"))
+        //     console.log(originalTemps)
+        // }
+        const myParagraphs = document.getElementsByClassName("temps")
+        // console.log(originalTemps[0].textContent)
+        if (temperatureID) {
+            Array.from(myParagraphs).forEach((e,i)=>e.textContent=parseInt(originalTemps[i]*1.8+32))
+            temperatureID = false
+        } else {
+            Array.from(myParagraphs).forEach((e,i)=>e.textContent=originalTemps[i])
+            temperatureID = true
+        }
+        
+
+
+    })
+})
+
+
+
+
