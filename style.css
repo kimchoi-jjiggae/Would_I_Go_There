@@ -350,6 +350,7 @@ ul {
   justify-content: center;
   width: 60%;
   margin: 0 auto;
+  display: none;
 }
 
 #fishTitle{
@@ -412,4 +413,30 @@ ul {
 
 a{
   text-decoration: none;
+}
+
+#searchAgain{
+  width: 60%;
+  margin: 0 auto;
+}
+
+#searchAgain button{
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: white;
+  color: #004080;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 100px;
+  font-size: 30px;
+  transition: 0.5s;
+  margin-top: 20px;
+}
+
+#searchAgain button:hover{
+  background-color: #60D29F;
+  color: #004080;
 }
