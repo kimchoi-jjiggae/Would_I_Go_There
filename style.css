@@ -28,13 +28,22 @@
   padding-right: 20px;
 }
 
+#webpageTitle {
+  font-size:8vh;
+}
+
+#webpageImage {
+  height:inherit;
+}
 #webpageImage img {
-  width: 800px;
+  max-height:inherit;
+
 }
 
 
 .addressInput {
-  margin-top: 5vh;
+  /* margin-top: .3vh; */
+  margin-bottom:3vh;
   color: #183F7C;
 }
 
@@ -96,18 +105,14 @@
   font-size: 30px;
 }
 
-.diggingPanel{
-  margin-top:10rem;
-}
 .resultContents {
   display: flex;
 }
 
-
-
 .homeInfo {
+  padding-top:5vh;
   justify-content: center;
-  display: flex;
+  /* display: flex; */
 }
 
 
@@ -170,7 +175,6 @@ ul {
 .switch {
 	position: relative;
 	display: block;
-	vertical-align: top;
 	width: 60px;
 	height: 30px;
 	padding: 3px;
