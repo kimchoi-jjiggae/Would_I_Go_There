@@ -306,6 +306,7 @@ ul {
   background-color: white;
   width: 200px;
   border-radius: 8px;
+  margin-bottom: 10px;
 }
 
 .cardTitle{
@@ -443,5 +444,15 @@ a{
 
 #digAgainButton:hover{
   background-color: #60D29F;
+  color: #004080;
+}
+
+#submitButton{
+  display: none;
+  margin: auto;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 100px;
+  background-color: white;
   color: #004080;
 }

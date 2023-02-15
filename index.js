@@ -103,11 +103,17 @@ window.addEventListener("resize", () => resizePage())
 function resizePage(){
     webpageImage = document.getElementById('webpageImage')
     landingPage = document.getElementById("landingPage")
+    let submitButton = document.getElementById("submitButton")
+    let facts = document.getElementById("cards")
+    let cardContainer = document.getElementsByClassName("cardContainer")
     // console.log(screen.innerWidth)
     if (screen.width < '550'){
         webpageImage.src = './images/world_mobile.svg'
         landingPage.style.height = screen.height + 'px'
         landingPage.style.width = screen.width  
+        submitButton.style.display = `block`;
+        facts.style.flexDirection = `column`;
+        // cardContainer.style.marginBottom = `10px`
     }
     else{
         landingPage.style.height = window.innerHeight + 'px'
