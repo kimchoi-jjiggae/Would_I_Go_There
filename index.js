@@ -91,7 +91,6 @@ function resizePage() {
     landingPage = document.getElementById("landingPage")
     let submitButton = document.getElementById("submitButton")
     let facts = document.getElementById("cards")
-    let cardContainer = document.getElementsByClassName("cardContainer")
     if (screen.width < '550') {
         webpageImage.src = './images/world_mobile.svg'
         landingPage.style.height = screen.height + 'px'
@@ -107,8 +106,6 @@ function resizePage() {
     }
     webpageImage.style.width = "70%"
 
-    // landingPage.style.width = window.innerWidth + 'px'
-    // if (landingPage.style.width<)
     document.getElementsByClassName("homeInfo")[0].style.height = window.innerHeight + 'px'
     document.getElementsByClassName("diggingPanel")[0].style.height = window.innerHeight + 'px'
     document.getElementById('address').style.width = .7 * window.innerWidth + 'px'
