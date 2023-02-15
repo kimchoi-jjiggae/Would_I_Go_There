@@ -26,56 +26,61 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 })
 
+
 document.getElementsByTagName("form")[0].addEventListener("submit", e => {
-
     e.preventDefault()
+  // Gets address inputed by user
+  inputAddress = document.getElementById("address").value
+ 
+  // formats address so that it can be put into the API to receive Lat/long
+  let formattedAddress = inputAddress.replaceAll(" ", "%")
+  let query = `https://api.geoapify.com/v1/geocode/search?text=${formattedAddress}&apiKey=ef5a7756a5d946bdae460c509c190f54`
+  // fetches Lat/Long of input address
+  fetch(query)
+      .then(res => res.json())
+      .then(data => {
+          // gets Lat/Long from API
+          lat = data.features[0].properties.lat
+          long = data.features[0].properties.lon
+
+          // document.getElementById("newLat").innerHTML = lat
+          // document.getElementById("newLong").innerHTML=long
+
+          // Creates map of home address
+          codeAddress()
+          scrollDown("currentLocation")
+          // setInterval(scrollDown("diggingPanel"), 20000)
+          // setInterval(scrollDown("result"), 400000)
+
+          // Creates antipodal location ased on lat and long
+          antiCoordinates = antipodal(lat, long)
+          otherCountry = getOtherCountry(antiCoordinates)
+          // Creates map of antipodal location
+
+          codeLatLng(antiCoordinates[0], antiCoordinates[1])
+
+          // Relaces placeholder elevation with antipodal location
+          getLocalTime(lat, long)
+
+          // Gets weather of antipodal location and renders it (rendering function is nested within the fetch function)
+          getWeatherData(antiCoordinates[0], antiCoordinates[1])
+          setTimeout(() => scrollDown("diggingPanel"), 2000)
+
+          setTimeout(() => scrollDown('result'), 4000)
+          // scrollDown("result")
 
 
-    // Gets address inputed by user
-    inputAddress = document.getElementById("address").value
-    document.getElementById("showAddress").append(inputAddress)
-
-    // formats address so that it can be put into the API to receive Lat/long
-    let formattedAddress = inputAddress.replaceAll(" ", "%")
-    let query = `https://api.geoapify.com/v1/geocode/search?text=${formattedAddress}&apiKey=ef5a7756a5d946bdae460c509c190f54`
-    // fetches Lat/Long of input address
-    fetch(query)
-        .then(res => res.json())
-        .then(data => {
-            // gets Lat/Long from API
-            lat = data.features[0].properties.lat
-            long = data.features[0].properties.lon
-
-            // document.getElementById("newLat").innerHTML = lat
-            // document.getElementById("newLong").innerHTML=long
-
-            // Creates map of home address
-            codeAddress()
-            scrollDown("currentLocation")
-            // setInterval(scrollDown("diggingPanel"), 20000)
-            // setInterval(scrollDown("result"), 400000)
-
-            // Creates antipodal location ased on lat and long
-            antiCoordinates = antipodal(lat, long)
-            otherCountry = getOtherCountry(antiCoordinates)
-            // Creates map of antipodal location
-
-            codeLatLng(antiCoordinates[0], antiCoordinates[1])
-
-            // Relaces placeholder elevation with antipodal location
-            getLocalTime(lat, long)
-
-            // Gets weather of antipodal location and renders it (rendering function is nested within the fetch function)
-            getWeatherData(antiCoordinates[0], antiCoordinates[1])
-            setTimeout(() => scrollDown("diggingPanel"), 2000)
-
-            setTimeout(() => scrollDown('result'), 4000)
-            // scrollDown("result")
-
-
-        })
+      })
 
 })
+// document.getElementById("submitButton").addEventListener("click", (e)=> {
+//     e.preventDefault()
+//     // formSubmit()
+//     console.log(e.target.previousSibling)
+
+   
+
+// })
 
 window.addEventListener("resize", () => resizePage())
 // resize first 3 div panels to equal the size of the window
