@@ -309,6 +309,7 @@ ul {
   justify-content: center;
   width: 60%;
   margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 #cards {
@@ -387,6 +388,7 @@ ul {
 #fishInformation {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 #fishText {
@@ -485,6 +487,7 @@ a {
     display: block;
     align-items: center;
     justify-content: center;
+    justify-content: space-between;
   }
 
   #fishText{
