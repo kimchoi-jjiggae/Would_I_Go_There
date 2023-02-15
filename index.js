@@ -13,10 +13,10 @@ let otherOcean;
 let oceanCount = 0;
 
 // Render default location
-document.addEventListener("DOMContentLoaded", ()=>{
+document.addEventListener("DOMContentLoaded", () => {
     // set default location as singapore
-    lat= 1.290270
-    long= 103.851959  
+    lat = 1.290270
+    long = 103.851959
     antiCoordinates = antipodal(lat, long)
     otherCountry = getOtherCountry(antiCoordinates)
     getLocalTime(lat, long)
@@ -30,36 +30,39 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 document.getElementsByTagName("form")[0].addEventListener("submit", e => {
     e.preventDefault()
-  // Gets address inputed by user
-  inputAddress = document.getElementById("address").value
- 
-  // formats address so that it can be put into the API to receive Lat/long
-  let formattedAddress = inputAddress.replaceAll(" ", "%")
-  let query = `https://api.geoapify.com/v1/geocode/search?text=${formattedAddress}&apiKey=ef5a7756a5d946bdae460c509c190f54`
-  // fetches Lat/Long of input address
-  fetch(query)
-      .then(res => res.json())
-      .then(data => {
-          // gets Lat/Long from API
-          lat = data.features[0].properties.lat
-          long = data.features[0].properties.lon
+    // Gets address inputed by user
+    inputAddress = document.getElementById("address").value
 
-          // document.getElementById("newLat").innerHTML = lat
-          // document.getElementById("newLong").innerHTML=long
+    // formats address so that it can be put into the API to receive Lat/long
+    let formattedAddress = inputAddress.replaceAll(" ", "%")
+    let query = `https://api.geoapify.com/v1/geocode/search?text=${formattedAddress}&apiKey=ef5a7756a5d946bdae460c509c190f54`
+    // fetches Lat/Long of input address
+    fetch(query)
+        .then(res => res.json())
+        .then(data => {
+            // gets Lat/Long from API
+            lat = data.features[0].properties.lat
+            long = data.features[0].properties.lon
 
-          // Creates map of home address
-          codeAddress()
-          scrollDown("currentLocation")
-          // setInterval(scrollDown("diggingPanel"), 20000)
-          // setInterval(scrollDown("result"), 400000)
+            // document.getElementById("newLat").innerHTML = lat
+            // document.getElementById("newLong").innerHTML=long
 
-          // Creates antipodal location ased on lat and long
-          antiCoordinates = antipodal(lat, long)
-          otherCountry = getOtherCountry(antiCoordinates)
-          // Creates map of antipodal location
-
-          codeLatLng(antiCoordinates[0], antiCoordinates[1])
             // Creates map of home address
+            codeAddress()
+            scrollDown("currentLocation")
+            // setInterval(scrollDown("diggingPanel"), 20000)
+            // setInterval(scrollDown("result"), 400000)
+
+            // Creates antipodal location ased on lat and long
+            antiCoordinates = antipodal(lat, long)
+            otherCountry = getOtherCountry(antiCoordinates)
+            // Creates map of antipodal location
+
+            codeLatLng(antiCoordinates[0], antiCoordinates[1])
+            // Creates map of home address
+
+
+
 
             codeAddress()
             scrollDown("currentLocation")
@@ -67,6 +70,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
             getLocalTime(lat, long)
             // Gets weather of antipodal location and renders it (rendering function is nested within the fetch function)
             getWeatherData(antiCoordinates[0], antiCoordinates[1])
+
 
             // Relaces placeholder elevation with antipodal location
             getLocalTime(lat, long)
@@ -84,7 +88,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
          
 
 
-      })
+        })
 
 })
 // document.getElementById("submitButton").addEventListener("click", (e)=> {
@@ -92,28 +96,28 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 //     // formSubmit()
 //     console.log(e.target.previousSibling)
 
-   
+
 
 // })
 
 window.addEventListener("resize", () => resizePage())
 // resize first 3 div panels to equal the size of the window
-function resizePage(){
+function resizePage() {
     webpageImage = document.getElementById('webpageImage')
     landingPage = document.getElementById("landingPage")
     let submitButton = document.getElementById("submitButton")
     let facts = document.getElementById("cards")
     let cardContainer = document.getElementsByClassName("cardContainer")
     // console.log(screen.innerWidth)
-    if (screen.width < '550'){
+    if (screen.width < '550') {
         webpageImage.src = './images/world_mobile.svg'
         landingPage.style.height = screen.height + 'px'
-        landingPage.style.width = screen.width  
+        landingPage.style.width = screen.width
         submitButton.style.display = `block`;
         facts.style.flexDirection = `column`;
-        // cardContainer.style.marginBottom = `10px`
+     
     }
-    else{
+    else {
         landingPage.style.height = window.innerHeight + 'px'
         landingPage.style.width = window.innerWidth + 'px'
         webpageImage.style.height = "50%"
@@ -124,7 +128,7 @@ function resizePage(){
     // if (landingPage.style.width<)
     document.getElementsByClassName("homeInfo")[0].style.height = window.innerHeight + 'px'
     document.getElementsByClassName("diggingPanel")[0].style.height = window.innerHeight + 'px'
-    document.getElementById('address').style.width = .7* window.innerWidth + 'px'
+    document.getElementById('address').style.width = .7 * window.innerWidth + 'px'
 }
 
 
@@ -311,14 +315,14 @@ function antipodal(lat, long) {
 function initialize() {
     geocoder = new google.maps.Geocoder();
     let latlng = new google.maps.LatLng(1.290270, 103.851959);
-    let latlng2 = new google.maps.LatLng(-1.290270, 103.851959-180);
+    let latlng2 = new google.maps.LatLng(-1.290270, 103.851959 - 180);
 
     let mapOptions1 = {
         zoom: 8,
         center: latlng
     }
     let mapOptions2 = {
-        zoom:8,
+        zoom: 8,
         center: latlng2
     }
     map = new google.maps.Map(document.getElementById("map_canvas1"), mapOptions1);
