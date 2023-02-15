@@ -121,6 +121,12 @@
   width: 100%
 }
 
+#diggingImage {
+  width:60%;
+  height: 60%;
+  padding-right:5vw;
+}
+
 .otherSideOfTheWorld {
   height: 500px;
   width: 100%;

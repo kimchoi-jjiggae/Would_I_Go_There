@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     // Gets weather of antipodal location and renders it (rendering function is nested within the fetch function)
     getWeatherData(antiCoordinates[0], antiCoordinates[1])
+    resizePage()
 
 })
 
@@ -76,9 +77,9 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
 })
 
+window.addEventListener("resize", () => resizePage())
 // resize first 3 div panels to equal the size of the window
-
-document.addEventListener("DOMContentLoaded", (e) => {
+function resizePage(){
     webpageImage = document.getElementById('webpageImage')
     landingPage = document.getElementById("landingPage")
     // console.log(screen.innerWidth)
@@ -94,18 +95,12 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
     webpageImage.style.width = "70%"
 
-
-
-
-
-    
-
     // landingPage.style.width = window.innerWidth + 'px'
     // if (landingPage.style.width<)
     document.getElementsByClassName("homeInfo")[0].style.height = window.innerHeight + 'px'
     document.getElementsByClassName("diggingPanel")[0].style.height = window.innerHeight + 'px'
     document.getElementById('address').style.width = .7* window.innerWidth + 'px'
-})
+}
 
 
 function scrollDown(panelClass) {
