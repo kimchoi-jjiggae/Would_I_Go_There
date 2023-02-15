@@ -53,13 +53,13 @@
   height: 30px;
   width: 400px;
   font-size: medium;
-  font-weight: bold;
   /* background-image: url(images/Vector.svg);
   background-position: 2px 3px;
   background-repeat: no-repeat;
   background-size: 22px;
   align-items: first baseline; */
 }
+
 
 ::placeholder {
   color: #183F7C;
@@ -425,14 +425,9 @@ a{
   text-decoration: none;
 }
 
-#searchAgain{
-  width: 60%;
-  margin: 0 auto;
-}
-
-#searchAgain button{
+#digAgainButton {
   display: block;
-  width: 100%;
+  width: 60%;
   border: none;
   background-color: white;
   color: #004080;
@@ -443,10 +438,10 @@ a{
   border-radius: 100px;
   font-size: 30px;
   transition: 0.5s;
-  margin-top: 20px;
+  margin: 30px auto;
 }
 
-#searchAgain button:hover{
+#digAgainButton:hover{
   background-color: #60D29F;
   color: #004080;
 }

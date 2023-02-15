@@ -58,6 +58,18 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
           // Creates map of antipodal location
 
           codeLatLng(antiCoordinates[0], antiCoordinates[1])
+            // Creates map of home address
+
+            if(reloadCount >= 2){
+                const antipodalMap = document.getElementsByClassName("otherSideOfTheWorld")
+                // antipodalMap.scrollIntoView({behavior: `smooth`})
+                scrollDown("result")
+                console.log("i work")
+            }
+            codeAddress()
+            scrollDown("currentLocation")
+            // setInterval(scrollDown("diggingPanel"), 20000)
+            // setInterval(scrollDown("result"), 400000)
 
           // Relaces placeholder elevation with antipodal location
           getLocalTime(lat, long)
@@ -68,6 +80,10 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
           setTimeout(() => scrollDown('result'), 4000)
           // scrollDown("result")
+          
+
+            // Relaces placeholder elevation with antipodal location
+            getLocalTime(lat, long)
 
 
       })
@@ -143,6 +159,10 @@ function getOtherCountry(antiCoordinates) {
                 const countryDataDiv = document.getElementById("facts")
                 countryDataDiv.style.display = 'none';
 
+                //hide weather data div
+                const weatherDataDiv = document.getElementById("weather")
+                weatherDataDiv.style.display = 'none';
+
                 //show the ocean data div
                 const fishDataDiv = document.getElementById("fishSection")
                 fishDataDiv.style.display = 'block';
@@ -154,6 +174,18 @@ function getOtherCountry(antiCoordinates) {
                 // append data for country on other side of world
                 getOtherData(otherCountry)
                 document.getElementById("otherCountry").innerText = `Welcome to ${otherCountry}!`
+
+                //hide the fish data div 
+                const fishDataDiv = document.getElementById("fishSection")
+                fishDataDiv.style.display = 'none';
+
+                // show the weather data div 
+                const weatherDataDiv = document.getElementById("weather")
+                weatherDataDiv.style.display = 'block';
+
+                //show the country data div
+                const countryDataDiv = document.getElementById("facts")
+                countryDataDiv.style.display = 'block';
 
 
             }
@@ -431,9 +463,21 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
-function refreshPage() {
-    window.scrollTo(0, 0)
-    location.reload()
-}
+// function refreshPage() {
+//     window.scrollTo(0, 0)
+//     location.reload()
+// }
+
+
+let reloadCount = 0
+document.addEventListener("DOMContentLoaded", function (e) {
+    const digAgainButton = document.getElementById("digAgainButton")
+
+    digAgainButton.addEventListener("click", function (e) {
+        reloadCount++
+        window.scrollTo(0, 0)
+    })
+
+})
 
 
