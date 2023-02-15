@@ -129,6 +129,8 @@ function resizePage() {
     document.getElementsByClassName("homeInfo")[0].style.height = window.innerHeight + 'px'
     document.getElementsByClassName("diggingPanel")[0].style.height = window.innerHeight + 'px'
     document.getElementById('address').style.width = .7 * window.innerWidth + 'px'
+    document.getElementById('fishSection').style.width = window.innerWidth + 'px'
+
 }
 
 

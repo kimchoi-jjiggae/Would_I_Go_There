@@ -298,6 +298,9 @@ ul {
   -o-transition: All 0.3s ease;
 }
 
+#fishiesPlease {
+  width:100%;
+}
 #factsTitle {
   display: flex;
   justify-content: space-between;
@@ -386,6 +389,7 @@ ul {
 }
 
 #fishInformation {
+  max-width:inherit;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -406,10 +410,12 @@ ul {
   font-weight: bold;
 }
 
-
+#fishImg{
+  width:90%
+}
 #fishImg img {
   border-radius: 20px;
-  width: 500px;
+  width: inherit;
   height: auto;
 }
 
