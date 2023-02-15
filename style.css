@@ -16,10 +16,11 @@
   background-color: #004080;
   color: white;
   text-align: center;
-  margin-left: 1vw;
-  margin-right: 1vw;
+  margin: auto;
   justify-content: center;
   width: inherit;
+  /* max-width: 100%; */
+  margin-bottom: 5vh;
 }
 
 #landingPage {
@@ -47,6 +48,11 @@
   color: #183F7C;
 }
 
+#address:hover{
+  background-color: lightgray;
+  transition: 0.5s;
+}
+
 #address {
   text-align: center;
   border-radius: 100px;
@@ -58,6 +64,7 @@
   background-repeat: no-repeat;
   background-size: 22px;
   align-items: first baseline; */
+
 }
 
 
@@ -298,9 +305,6 @@ ul {
   -o-transition: All 0.3s ease;
 }
 
-#fishiesPlease {
-  width:100%;
-}
 #factsTitle {
   display: flex;
   justify-content: space-between;
@@ -382,6 +386,7 @@ ul {
   width: 60%;
   margin: 0 auto;
   display: none;
+  align-items: center;
 }
 
 #fishTitle {
@@ -389,10 +394,12 @@ ul {
 }
 
 #fishInformation {
-  max-width:inherit;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: auto;
+  /* justify-content: center; */
+  width: 60%;
 }
 
 #fishText {
@@ -410,13 +417,12 @@ ul {
   font-weight: bold;
 }
 
-#fishImg{
-  width:90%
-}
+
 #fishImg img {
   border-radius: 20px;
-  width: inherit;
+  width: 500px;
   height: auto;
+  
 }
 
 #donate {
@@ -452,22 +458,23 @@ a {
 
 #digAgainButton {
   display: block;
-  width: 60%;
+  width: 300px;
+  padding: 10px;
   border: none;
   background-color: white;
   color: #004080;
-  padding: 14px 28px;
-  font-size: 16px;
   cursor: pointer;
   text-align: center;
   border-radius: 100px;
-  font-size: 30px;
+  font-size: 20px;
   transition: 0.5s;
-  margin: 30px auto;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 
 #digAgainButton:hover {
-  background-color: #60D29F;
+  background-color: lightgrey;
   color: #004080;
 }
 
@@ -482,7 +489,7 @@ a {
 }
 
 @media(max-width:1370px) {
-  #cards{
+  #cards {
     flex-direction: column;
     margin: auto;
     align-items: center;
@@ -496,7 +503,7 @@ a {
     justify-content: space-between;
   }
 
-  #fishText{
+  #fishText {
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -504,8 +511,8 @@ a {
 
 }
 
-@media(max-width:900px){
-  .mainPage{
+@media(max-width:900px) {
+  .mainPage {
     margin-left: 2vw;
     margin-right: 2vw;
     align-items: center;
@@ -514,6 +521,6 @@ a {
   }
 }
 
-#otherCountry{
+#otherCountry {
   font-size: 50px;
 }
