@@ -77,40 +77,34 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 })
 
 // resize first 3 div panels to equal the size of the window
-function resizeDivs(parentDivs) {
-    parentDivs.forEach(parentDiv => {
-        const myDiv = document.getElementById(parentDiv);
-        myDiv.style.height = window.innerHeight * .9 + 'px'
-        // window.addEventListener('resize', () => myDiv.style.height = window.innerHeight + 'px'); // update the height on window resize
-
-        const divHeight = myDiv.offsetHeight;
-        const divWidth = myDiv.offsetWidth;
-        const elements = myDiv.querySelectorAll('*');
-
-
-        elements.forEach(element => {
-            const elementHeight = element.offsetHeight;
-            const elementWidth = element.offsetWidth;
-            if (elementHeight > .7 * divHeight) {
-                element.style.height = '70%';
-            }
-            if (elementWidth > divWidth) {
-                element.style.width = '80%';
-            }
-        })
-    })
-}
-
-document.addEventListener("DOMContentLoaded", resizeDivs(["landingPage"]))
 
 document.addEventListener("DOMContentLoaded", (e) => {
+    webpageImage = document.getElementById('webpageImage')
+    landingPage = document.getElementById("landingPage")
+    // console.log(screen.innerWidth)
+    if (screen.width < '550'){
+        webpageImage.src = './images/world_mobile.svg'
+        landingPage.style.height = screen.height + 'px'
+        landingPage.style.width = screen.width  
+    }
+    else{
+        landingPage.style.height = window.innerHeight + 'px'
+        landingPage.style.width = window.innerWidth + 'px'
+        webpageImage.style.height = "50%"
+    }
+    webpageImage.style.width = "70%"
+
+
+
+
+
+    
+
+    // landingPage.style.width = window.innerWidth + 'px'
+    // if (landingPage.style.width<)
     document.getElementsByClassName("homeInfo")[0].style.height = window.innerHeight + 'px'
-
-})
-
-document.addEventListener("DOMContentLoaded", (e) => {
     document.getElementsByClassName("diggingPanel")[0].style.height = window.innerHeight + 'px'
-
+    document.getElementById('address').style.width = .7* window.innerWidth + 'px'
 })
 
 

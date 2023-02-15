@@ -19,13 +19,16 @@
   margin-left: 1vw;
   margin-right: 1vw;
   justify-content: center;
+  width:inherit;
 }
 
 #landingPage {
   text-align: center;
+  align-content: center;
   font-size: 45px;
   padding-left: 20px;
   padding-right: 20px;
+  width:inherit;
 }
 
 #webpageTitle {
@@ -33,11 +36,8 @@
 }
 
 #webpageImage {
-  height:inherit;
-}
-#webpageImage img {
   max-height:inherit;
-
+  max-width:inherit;
 }
 
 
