@@ -44,14 +44,9 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
             lat = data.features[0].properties.lat
             long = data.features[0].properties.lon
 
-            // document.getElementById("newLat").innerHTML = lat
-            // document.getElementById("newLong").innerHTML=long
-
             // Creates map of home address
             codeAddress()
             scrollDown("currentLocation")
-            // setInterval(scrollDown("diggingPanel"), 20000)
-            // setInterval(scrollDown("result"), 400000)
 
             // Creates antipodal location ased on lat and long
             antiCoordinates = antipodal(lat, long)
@@ -60,9 +55,6 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
             codeLatLng(antiCoordinates[0], antiCoordinates[1])
             // Creates map of home address
-
-
-
 
             codeAddress()
             scrollDown("currentLocation")
@@ -91,14 +83,6 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
         })
 
 })
-// document.getElementById("submitButton").addEventListener("click", (e)=> {
-//     e.preventDefault()
-//     // formSubmit()
-//     console.log(e.target.previousSibling)
-
-
-
-// })
 
 window.addEventListener("resize", () => resizePage())
 // resize first 3 div panels to equal the size of the window
@@ -108,7 +92,6 @@ function resizePage() {
     let submitButton = document.getElementById("submitButton")
     let facts = document.getElementById("cards")
     let cardContainer = document.getElementsByClassName("cardContainer")
-    // console.log(screen.innerWidth)
     if (screen.width < '550') {
         webpageImage.src = './images/world_mobile.svg'
         landingPage.style.height = screen.height + 'px'
@@ -139,18 +122,12 @@ function scrollDown(panelClass) {
 
     // Calculate the target position
     let targetPosition = target.offsetTop - 50;
-    // console.log(typeof(targetPosition-10))
-    // console.log("hi")
-    // targetPosition = targetPosition;
-
 
     // Scroll to the target position over a duration of 1000ms (1s)
     window.scroll({
         top: targetPosition,
         behavior: "smooth"
     });
-
-    // scrolldelay = setTimeout(scrollDown,10)
 
 
 }
@@ -262,13 +239,6 @@ function getOceanData(otherOcean) {
 }
 
 function getOtherData(country) {
-    // fetch(`https://api.api-ninjas.com/v1/country?name=${country}`, {headers: {
-    //     'X-Api-Key': 'F4oBJay/tpdTNseprIXS6w==jeUoJ74InQ3ksOZw'
-    //   }})
-    //     .then(res=>res.json)
-    //     .then(data=> {
-    //         console.log(data)
-    //     })
     let otherData;
     $.ajax({
         method: 'GET',
@@ -365,10 +335,6 @@ function codeAddress() {
     });
 }
 
-
-
-
-
 function renderOtherTime(dateObj) {
     document.getElementById("otherSideTime").innerText = `Time at your new location: ${dateObj}`
 
@@ -394,9 +360,7 @@ function getWeatherData(lat, long) {
                 weatherBar.className = "weatherBar"
             }
             data.hourly.forEach(hour => renderHourlyWeather(hour))
-            // data.hourly.forEach(hour => console.log(hour.temp))
             renderOtherTime(dateObj)
-            // renderHomeTime(homeDateObj)
         })
 }
 
@@ -463,13 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const button = document.querySelector(".switch-input")
 
     button.addEventListener("click", function (e) {
-        // if (originalTemps==undefined){
-        //     console.log('hi')
-        //     originalTemps = Array.from(document.getElementsByClassName("temps"))
-        //     console.log(originalTemps)
-        // }
         const myParagraphs = document.getElementsByClassName("temps")
-        // console.log(originalTemps[0].textContent)
         if (temperatureID) {
             Array.from(myParagraphs).forEach((e, i) => e.textContent = parseInt(originalTemps[i] * 1.8 + 32))
             temperatureID = false
@@ -483,12 +441,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
-// function refreshPage() {
-//     window.scrollTo(0, 0)
-//     location.reload()
-// }
-
-
 let reloadCount = 0
 document.addEventListener("DOMContentLoaded", function (e) {
     const digAgainButton = document.getElementById("digAgainButton")
@@ -497,7 +449,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
         reloadCount++
         window.scrollTo(0, 0)
     })
-
 })
 
 
