@@ -10,6 +10,7 @@ let otherCountry;
 let otherCity;
 let originalTemps = [];
 let otherOcean;
+let oceanCount = 0;
 
 // Render default location
 document.addEventListener("DOMContentLoaded", ()=>{
@@ -60,30 +61,27 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
           codeLatLng(antiCoordinates[0], antiCoordinates[1])
             // Creates map of home address
 
-            if(reloadCount >= 2){
-                const antipodalMap = document.getElementsByClassName("otherSideOfTheWorld")
-                // antipodalMap.scrollIntoView({behavior: `smooth`})
-                scrollDown("result")
-                console.log("i work")
-            }
             codeAddress()
             scrollDown("currentLocation")
-            // setInterval(scrollDown("diggingPanel"), 20000)
-            // setInterval(scrollDown("result"), 400000)
-
-          // Relaces placeholder elevation with antipodal location
-          getLocalTime(lat, long)
-
-          // Gets weather of antipodal location and renders it (rendering function is nested within the fetch function)
-          getWeatherData(antiCoordinates[0], antiCoordinates[1])
-          setTimeout(() => scrollDown("diggingPanel"), 2000)
-
-          setTimeout(() => scrollDown('result'), 4000)
-          // scrollDown("result")
-          
+             // Relaces placeholder elevation with antipodal location
+            getLocalTime(lat, long)
+            // Gets weather of antipodal location and renders it (rendering function is nested within the fetch function)
+            getWeatherData(antiCoordinates[0], antiCoordinates[1])
 
             // Relaces placeholder elevation with antipodal location
             getLocalTime(lat, long)
+            // setInterval(scrollDown("diggingPanel"), 20000)
+            // setInterval(scrollDown("result"), 400000)
+            if(reloadCount < 1){
+                const antipodalMap = document.getElementsByClassName("otherSideOfTheWorld")
+                // antipodalMap.scrollIntoView({behavior: `smooth`})
+                setTimeout(() => scrollDown("diggingPanel"), 2000)
+                setTimeout(() => scrollDown('result'), 4000)
+            }
+            else{
+                setTimeout(() => scrollDown('result'), 2000)
+            }
+         
 
 
       })
@@ -158,8 +156,6 @@ function getOtherCountry(antiCoordinates) {
             if (data.results[0].ocean) {
                 otherOcean = data.results[0].ocean
                 document.getElementById("otherCountry").innerText = `Welcome to the ${otherOcean}!`
-                getOceanData(otherOcean)
-                renderFishData(otherOcean)
 
                 //hide the country data div
                 const countryDataDiv = document.getElementById("facts")
@@ -169,10 +165,16 @@ function getOtherCountry(antiCoordinates) {
                 const weatherDataDiv = document.getElementById("weather")
                 weatherDataDiv.style.display = 'none';
 
-                //show the ocean data div
-                const fishDataDiv = document.getElementById("fishSection")
-                fishDataDiv.style.display = 'block';
-
+                if(oceanCount < 2){
+                    //show the ocean data div
+                    const fishDataDiv = document.getElementById("fishSection")
+                    fishDataDiv.style.display = 'block';
+                    
+                }
+                else{
+                    
+                }
+                renderFishData(otherOcean)
 
             } else {
                 otherCountry = data.results[0].country
@@ -203,36 +205,42 @@ function getOtherCountry(antiCoordinates) {
 
 
 function renderFishData(otherOcean) {
+    oceanCount++;
     console.log(otherOcean)
     let oceanDataArray;
 
     fetch("https://kimchoi-jjiggae.github.io/fishData/fishData.json")
         .then(response => response.json())
         .then(data => {
-
-            data.oceanData.forEach(ocean => {
-                console.log(ocean.ocean)
+            if (oceanCount<=1){
                 if (otherOcean.includes(ocean.ocean)) {
-                    oceanDataArray = ocean
+                    data.oceanData.forEach(ocean => {                    
+                        oceanDataArray = ocean
 
-                    let i = Math.floor(Math.random() * oceanDataArray.fishFacts.length)
-                    let randomFishFact = oceanDataArray.fishFacts[i]
-                    console.log(randomFishFact)
+                            let i = Math.floor(Math.random() * oceanDataArray.fishFacts.length)
+                            let randomFishFact = oceanDataArray.fishFacts[i]
 
-                    let fishName = document.querySelector("#fishName")
-                    let fishFact = document.querySelector("#fishOverviewText")
-                    let fishImage = document.getElementById("fishiesPlease")
-                    fishName.textContent = randomFishFact.fish
-                    fishFact.textContent = randomFishFact.fact
-                    fishImage.src = randomFishFact.img
+                            let fishName = document.querySelector("#fishName")
+                            let fishFact = document.querySelector("#fishOverviewText")
+                            let fishImage = document.getElementById("fishiesPlease")
+                            fishName.textContent = randomFishFact.fish
+                            fishFact.textContent = randomFishFact.fact
+                            fishImage.src = randomFishFact.img
+                        })
 
-
-                }
-
-            })
+                    }
 
 
-        })
+            }
+            else{
+                let i = Math.floor(Math.random()*data.oceanFacts.length)
+                let randomOceanFact = data.oceanFacts[i]
+                let fishName = document.querySelector("#fishName")
+                fishName.textContent = `${otherOcean}: Did you know...`
+                let oceanFact = document.querySelector("#fishOverviewText")
+                oceanFact.textContent = randomOceanFact.fact
+            }
+    })
 }
 
 
