@@ -91,12 +91,26 @@ function resizePage() {
     landingPage = document.getElementById("landingPage")
     let submitButton = document.getElementById("submitButton")
     let facts = document.getElementById("cards")
+    let fishOceanImage = document.getElementById("fishiesPlease")
+    let fishImageDiv = document.getElementById("fishImg")
+    let fishText = document.getElementById("fishText")
+    let fishInformation = document.getElementById("fishInformation")
+
     if (screen.width < '550') {
         webpageImage.src = './images/world_mobile.svg'
         landingPage.style.height = screen.height + 'px'
         landingPage.style.width = screen.width
         submitButton.style.display = `block`;
         facts.style.flexDirection = `column`;
+        fishOceanImage.style.display ='block';
+        fishOceanImage.style.width = '300px';
+        fishImageDiv.style.textAlign = 'center'
+        fishImageDiv.style.width = '300px'
+        fishImageDiv.style.height = 'auto'
+
+        fishText.style.paddingRight = "0px"
+        fishInformation.style.display = "inline-grid"
+        fishInformation.style.justifyContent = "center"
      
     }
     else {
@@ -215,10 +229,14 @@ function renderFishData(otherOcean) {
             else{
                 let i = Math.floor(Math.random()*data.oceanFacts.length)
                 let randomOceanFact = data.oceanFacts[i]
+                
                 let fishName = document.querySelector("#fishName")
                 fishName.textContent = `${otherOcean}: Did you know...`
+                
                 let oceanFact = document.querySelector("#fishOverviewText")
                 oceanFact.textContent = randomOceanFact.fact
+
+                //ocean image rendering goes below
             }
     })
 }
