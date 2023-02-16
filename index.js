@@ -207,7 +207,7 @@ function renderFishData(otherOcean) {
         .then(response => response.json())
         .then(data => {
             if (oceanCount<=1){
-                if (otherOcean.includes(data.oceanData.ocean)) {
+                if (otherOcean.includes(ocean.ocean)) {
                     data.oceanData.forEach(ocean => {                    
                         oceanDataArray = ocean
 
