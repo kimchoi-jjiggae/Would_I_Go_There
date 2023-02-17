@@ -194,7 +194,7 @@ function getOtherCountry(antiCoordinates) {
     return otherCountry;
 }
 
-
+let percent; 
 function renderFishData(otherOcean) {
     oceanCount++;
     let oceanDataArray;
@@ -451,7 +451,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
     digAgainButton.addEventListener("click", function (e) {
         reloadCount++
         window.scrollTo(0, 0)
+        percent.remove()
     })
+    
 })
 
 
