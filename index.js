@@ -227,14 +227,16 @@ function renderFishData(otherOcean) {
                 let i = Math.floor(Math.random()*data.oceanFacts.length)
                 let randomOceanFact = data.oceanFacts[i]
                 document.getElementById("meetNeighbor").innerText = "You're back in the ocean!"
-                document.createElement("p").innerText = "That's because the ocean covers 70% of the ocean."
+                percent = document.createElement("p")
+                percent.innerText = "That's because the ocean covers 70% of the earth's surface."
+                document.getElementById('fishTitle').append(percent)
                 let fishName = document.querySelector("#fishName")
-                fishName.textContent = `${otherOcean}: Did you know...`
+                fishName.textContent = `Did you know...`
                 
                 let fishImage = document.getElementById("fishiesPlease")
                 fishImage.src = randomOceanFact.img
                 let oceanFact = document.querySelector("#fishOverviewText")
-                oceanFact.textContent = `Also, did you know... ${randomOceanFact.fact}. Isn't the ocean cool? Let's save it, YAY! Plz recycle and stuff.`
+                oceanFact.textContent = `${randomOceanFact.fact}. Isn't the ocean cool? Let's save it, YAY! Plz recycle and stuff.`
 
                 //ocean image rendering goes below
             }
