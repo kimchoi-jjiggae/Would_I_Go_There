@@ -389,7 +389,11 @@ ul {
 }
 
 #fishTitle {
-  font-size: 30px;
+  font-size: 2rem;
+}
+
+#fishName{
+  font-size: 1.5rem;
 }
 
 #fishInformation {
@@ -406,10 +410,6 @@ ul {
   padding-right: 20px;
 }
 
-#fishText h3 {
-  font-size: 50px;
-
-}
 
 #fishText #fishOverview {
   font-size: 20px;

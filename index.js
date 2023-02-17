@@ -111,8 +111,12 @@ function resizePage() {
         fishText.style.paddingRight = "0px"
         fishInformation.style.display = "inline-grid"
         fishInformation.style.justifyContent = "center"
+        if (screen.height < '700'){
+            map2 = document.getElementById("map_canvas2").style.height = "300px"
+        }
 
     }
+
     else {
         landingPage.style.height = window.innerHeight + 'px'
         landingPage.style.width = window.innerWidth + 'px'
@@ -214,7 +218,7 @@ function renderFishData(otherOcean) {
                         let fishFact = document.querySelector("#fishOverviewText")
                         let fishImage = document.getElementById("fishiesPlease")
                         fishName.textContent = randomFishFact.fish
-                        fishFact.textContent = randomFishFact.fact
+                        fishFact.textContent = `The ${randomFishFact.fish} commonly lives in the ${otherOcean}. ${randomFishFact.fact}`
                         fishImage.src = randomFishFact.img
                     }
                 })
@@ -226,6 +230,7 @@ function renderFishData(otherOcean) {
                 document.getElementById("meetNeighbor").innerText = "You're back in the ocean!"
                 percent = document.createElement("p")
                 percent.innerText = "That's because the ocean covers 70% of the earth's surface."
+                percent.style.fontSize="1.7rem";
                 document.getElementById('fishTitle').append(percent)
                 let fishName = document.querySelector("#fishName")
                 fishName.textContent = `Did you know...`
