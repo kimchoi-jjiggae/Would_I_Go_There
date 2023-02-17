@@ -58,7 +58,7 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 
             codeAddress()
             scrollDown("currentLocation")
-             // Relaces placeholder elevation with antipodal location
+            // Relaces placeholder elevation with antipodal location
             getLocalTime(lat, long)
             // Gets weather of antipodal location and renders it (rendering function is nested within the fetch function)
             getWeatherData(antiCoordinates[0], antiCoordinates[1])
@@ -68,16 +68,16 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
             getLocalTime(lat, long)
             // setInterval(scrollDown("diggingPanel"), 20000)
             // setInterval(scrollDown("result"), 400000)
-            if(reloadCount < 1){
+            if (reloadCount < 1) {
                 const antipodalMap = document.getElementsByClassName("otherSideOfTheWorld")
                 // antipodalMap.scrollIntoView({behavior: `smooth`})
                 setTimeout(() => scrollDown("diggingPanel"), 2000)
                 setTimeout(() => scrollDown('result'), 4000)
             }
-            else{
+            else {
                 setTimeout(() => scrollDown('result'), 2000)
             }
-         
+
 
 
         })
@@ -102,7 +102,7 @@ function resizePage() {
         landingPage.style.width = screen.width
         submitButton.style.display = `block`;
         facts.style.flexDirection = `column`;
-        fishOceanImage.style.display ='block';
+        fishOceanImage.style.display = 'block';
         fishOceanImage.style.width = '300px';
         fishImageDiv.style.textAlign = 'center'
         fishImageDiv.style.width = '300px'
@@ -111,7 +111,7 @@ function resizePage() {
         fishText.style.paddingRight = "0px"
         fishInformation.style.display = "inline-grid"
         fishInformation.style.justifyContent = "center"
-     
+
     }
     else {
         landingPage.style.height = window.innerHeight + 'px'
@@ -159,15 +159,12 @@ function getOtherCountry(antiCoordinates) {
                 const weatherDataDiv = document.getElementById("weather")
                 weatherDataDiv.style.display = 'none';
 
-                if(oceanCount < 2){
-                    //show the ocean data div
-                    const fishDataDiv = document.getElementById("fishSection")
-                    fishDataDiv.style.display = 'block';
-                    
-                }
-                else{
-                    
-                }
+
+                //show the ocean data div
+                const fishDataDiv = document.getElementById("fishSection")
+                fishDataDiv.style.display = 'block';
+
+
                 renderFishData(otherOcean)
 
             } else {
@@ -205,26 +202,26 @@ function renderFishData(otherOcean) {
     fetch("https://kimchoi-jjiggae.github.io/fishData/fishData.json")
         .then(response => response.json())
         .then(data => {
-            if (oceanCount<=1){
-                    data.oceanData.forEach(ocean => {    
-                        if (otherOcean.includes(ocean.ocean)) {                
-                            oceanDataArray = ocean
-                            console.log(oceanDataArray.fishFacts)
-                            let i = Math.floor(Math.random() * oceanDataArray.fishFacts.length)
-                            let randomFishFact = oceanDataArray.fishFacts[i]
+            if (oceanCount <= 1) {
+                data.oceanData.forEach(ocean => {
+                    if (otherOcean.includes(ocean.ocean)) {
+                        oceanDataArray = ocean
+                        console.log(oceanDataArray.fishFacts)
+                        let i = Math.floor(Math.random() * oceanDataArray.fishFacts.length)
+                        let randomFishFact = oceanDataArray.fishFacts[i]
 
-                            let fishName = document.querySelector("#fishName")
-                            let fishFact = document.querySelector("#fishOverviewText")
-                            let fishImage = document.getElementById("fishiesPlease")
-                            fishName.textContent = randomFishFact.fish
-                            fishFact.textContent = randomFishFact.fact
-                            fishImage.src = randomFishFact.img
-                        }
-                    })
-              }
+                        let fishName = document.querySelector("#fishName")
+                        let fishFact = document.querySelector("#fishOverviewText")
+                        let fishImage = document.getElementById("fishiesPlease")
+                        fishName.textContent = randomFishFact.fish
+                        fishFact.textContent = randomFishFact.fact
+                        fishImage.src = randomFishFact.img
+                    }
+                })
+            }
 
-            else{
-                let i = Math.floor(Math.random()*data.oceanFacts.length)
+            else {
+                let i = Math.floor(Math.random() * data.oceanFacts.length)
                 let randomOceanFact = data.oceanFacts[i]
                 document.getElementById("meetNeighbor").innerText = "You're back in the ocean!"
                 percent = document.createElement("p")
@@ -232,7 +229,7 @@ function renderFishData(otherOcean) {
                 document.getElementById('fishTitle').append(percent)
                 let fishName = document.querySelector("#fishName")
                 fishName.textContent = `Did you know...`
-                
+
                 let fishImage = document.getElementById("fishiesPlease")
                 fishImage.src = randomOceanFact.img
                 let oceanFact = document.querySelector("#fishOverviewText")
@@ -240,7 +237,7 @@ function renderFishData(otherOcean) {
 
                 //ocean image rendering goes below
             }
-    })
+        })
 }
 
 
