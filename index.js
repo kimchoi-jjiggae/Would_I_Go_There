@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })
 
-
 document.getElementsByTagName("form")[0].addEventListener("submit", e => {
     e.preventDefault()
     // Gets address inputed by user
@@ -78,10 +77,8 @@ document.getElementsByTagName("form")[0].addEventListener("submit", e => {
                 setTimeout(() => scrollDown('result'), 2000)
             }
 
-
-
         })
-
+    e.target.reset()
 })
 
 window.addEventListener("resize", () => resizePage())
@@ -111,7 +108,7 @@ function resizePage() {
         fishText.style.paddingRight = "0px"
         fishInformation.style.display = "inline-grid"
         fishInformation.style.justifyContent = "center"
-        if (screen.height < '700'){
+        if (screen.height < '700') {
             map2 = document.getElementById("map_canvas2").style.height = "300px"
         }
 
@@ -198,7 +195,7 @@ function getOtherCountry(antiCoordinates) {
     return otherCountry;
 }
 
-let percent; 
+let percent;
 function renderFishData(otherOcean) {
     oceanCount++;
     let oceanDataArray;
@@ -230,7 +227,7 @@ function renderFishData(otherOcean) {
                 document.getElementById("meetNeighbor").innerText = "You're back in the ocean!"
                 percent = document.createElement("p")
                 percent.innerText = "That's because the ocean covers 70% of the earth's surface."
-                percent.style.fontSize="1.7rem";
+                percent.style.fontSize = "1.7rem";
                 document.getElementById('fishTitle').append(percent)
                 let fishName = document.querySelector("#fishName")
                 fishName.textContent = `Did you know...`
@@ -458,7 +455,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         window.scrollTo(0, 0)
         percent.remove()
     })
-    
+
 })
 
 
