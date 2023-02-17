@@ -309,7 +309,7 @@ function initialize() {
         center: latlng
     }
     let mapOptions2 = {
-        zoom: 8,
+        zoom: 6,
         center: latlng2
     }
     map = new google.maps.Map(document.getElementById("map_canvas1"), mapOptions1);
