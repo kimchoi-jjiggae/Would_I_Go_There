@@ -233,7 +233,7 @@ function renderFishData(otherOcean) {
                 let fishImage = document.getElementById("fishiesPlease")
                 fishImage.src = randomOceanFact.img
                 let oceanFact = document.querySelector("#fishOverviewText")
-                oceanFact.textContent = `${randomOceanFact.fact}. Isn't the ocean cool? Let's save it, YAY! Plz recycle and stuff.`
+                oceanFact.textContent = `${randomOceanFact.fact} Isn't the ocean cool? Let's save it, YAY! Plz recycle and stuff.`
 
                 //ocean image rendering goes below
             }
