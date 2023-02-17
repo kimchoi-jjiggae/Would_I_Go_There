@@ -29,11 +29,9 @@ We leveraged the following event handlers to make the app interactive:
 
 2. **"submit"**: We parse the value of the user's input upon submission of their address, to pass along to functions that render relevant data about the antipodal location (e.g. map display, demographic data)
 
-3. **"click"**: We keep track of the number of times a user clicks the affordance to re-input an address in order to update the flow of the page based on the data they have already seen. More on this below!
+3. **"click"**: We keep track of the number of times a user clicks the affordance to re-input an address in order to update the flow of the page based on the data they have already seen. More on this below! We also added the ability to change the temperature scale between fahrenheit and celsius. More on this below!
 
 4. **"DOMContentLoaded"**: To add interactive javascript to modify elements after the initial set of elements rendered.
-
-5. **"Toggle Button"**: To change the temperature between fahrenheit and celsius. 
 
 ### Interactive User Flow Logic
 By counting the number of times that users click on the button that redirects them to the address form, we could change the user flow. To ensure users do not get discouraged and drop off after landing in the ocean a few times, we show them different messages depending on how many times they've landed in water. The first time they land in water, we show them data about nearby marine life. 
