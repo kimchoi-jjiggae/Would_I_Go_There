@@ -344,7 +344,7 @@ function codeAddress() {
 }
 
 function renderOtherTime(dateObj) {
-    document.getElementById("otherSideTime").innerText = `Time at your new location: ${dateObj}`
+    document.getElementById("otherSideTime").innerText = `Local Time: ${dateObj}`
 
 
 }
