@@ -200,17 +200,16 @@ function getOtherCountry(antiCoordinates) {
 
 function renderFishData(otherOcean) {
     oceanCount++;
-    console.log(otherOcean)
     let oceanDataArray;
 
     fetch("https://kimchoi-jjiggae.github.io/fishData/fishData.json")
         .then(response => response.json())
         .then(data => {
             if (oceanCount<=1){
-                if (otherOcean.includes(ocean.ocean)) {
-                    data.oceanData.forEach(ocean => {                    
-                        oceanDataArray = ocean
-
+                    data.oceanData.forEach(ocean => {    
+                        if (otherOcean.includes(ocean.ocean)) {                
+                            oceanDataArray = ocean
+                            console.log(oceanDataArray.fishFacts)
                             let i = Math.floor(Math.random() * oceanDataArray.fishFacts.length)
                             let randomFishFact = oceanDataArray.fishFacts[i]
 
@@ -220,12 +219,10 @@ function renderFishData(otherOcean) {
                             fishName.textContent = randomFishFact.fish
                             fishFact.textContent = randomFishFact.fact
                             fishImage.src = randomFishFact.img
-                        })
+                        }
+                    })
+              }
 
-                    }
-
-
-            }
             else{
                 let i = Math.floor(Math.random()*data.oceanFacts.length)
                 let randomOceanFact = data.oceanFacts[i]
@@ -233,6 +230,8 @@ function renderFishData(otherOcean) {
                 let fishName = document.querySelector("#fishName")
                 fishName.textContent = `${otherOcean}: Did you know...`
                 
+                let fishImage = document.getElementById("fishiesPlease")
+                fishImage.src = randomOceanFact.img
                 let oceanFact = document.querySelector("#fishOverviewText")
                 oceanFact.textContent = randomOceanFact.fact
 
@@ -242,16 +241,6 @@ function renderFishData(otherOcean) {
 }
 
 
-
-function getOceanData(otherOcean) {
-    // locationInformation = document.getElementById("locationInformation")
-    // let fishFact = document.createElement("p")
-    // fishFact.innerText = `Did you know the ${otherOcean} has a gajillion fish and a tiny turtle that looks like this? Plz save it!`
-    // let fishPic = document.createElement("img")
-    // fishPic.src = `./images/turtle.png`
-    // fishPic.className = "turtlePic"
-    // locationInformation.append(fishFact, fishPic)
-}
 
 function getOtherData(country) {
     let otherData;
@@ -274,7 +263,6 @@ function getOtherData(country) {
 }
 
 function renderCountryData(otherData) {
-    console.log(otherData)
     let populationFact = document.getElementById("populationFact")
     let gdpFact = document.getElementById("gdpFact")
     let currencyFact = document.getElementById("currencyFact")
