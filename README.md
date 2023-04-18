@@ -1,8 +1,10 @@
 # What's On The Other Side of the World?
 
+*TLDR: Check the live product out [here](https://kimchoi-jjiggae.github.io/Would_I_Go_There/)*
+
 People are familiar with what's going on in the neighborhood around us -- what currency is in use, what country we're in, perhaps the coffee shop nearest to our home. But how much do we know about what's going on on the opposite side of the world? Imagine you were to dig a whole straight through the earth. Would you _really_ end up in China?
 
-Using this *[tool]*(https://kimchoi-jjiggae.github.io/Would_I_Go_There/), you can find out!
+Using this [tool](https://kimchoi-jjiggae.github.io/Would_I_Go_There/), you can find out!
 
 ## Where'd You Land?
 Try inputting your home location and see where that hole drops you off. Sometimes you'll land in a foreign country -- you'll get to see some facts about the region. But after a couple tries, notice anything interesting?
